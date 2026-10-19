@@ -1,0 +1,134 @@
+/* Cyvo design tokens. Generated from DESIGN.md (v2) — edit DESIGN.md, then run /design-director sync.
+   Last generated: 2026-10-17
+   Font: at launch, replace this @import with one self-hosted Latin-subset League Gothic woff2. */
+@import url("https://fonts.googleapis.com/css2?family=League+Gothic&display=swap");
+
+:root {
+  /* Scales */
+  --accent-50: #fff4f1;
+  --accent-100: #ffe5dd;
+  --accent-200: #ffc9b9;
+  --accent-300: #ffa287;
+  --accent-400: #f7754f;
+  --accent-500: #ea5a2e;
+  --accent-600: #bc3600;
+  --accent-700: #972900;
+  --accent-800: #731c00;
+  --accent-900: #521000;
+  --accent-950: #330500;
+  --neutral-50: #f4f6ff;
+  --neutral-100: #e9ebf3;
+  --neutral-200: #d5d7e0;
+  --neutral-300: #bbbdc6;
+  --neutral-400: #9fa1a9;
+  --neutral-500: #84868e;
+  --neutral-600: #6a6b73;
+  --neutral-700: #53555c;
+  --neutral-800: #3e3f46;
+  --neutral-900: #2a2b31;
+  --neutral-950: #17181e;
+
+  /* Roles: morning (blush) ground */
+  --color-bg: #fbf6f4;
+  --color-surface: #ffffff;
+  --color-surface-2: #f3ece8;
+  --color-text: #141c30;
+  --color-text-muted: #5d6175;
+  --color-border: #e6deda;
+  --color-accent: #cf4417;          /* buttons, white text */
+  --color-accent-contrast: #ffffff;
+  --color-accent-bright: #ea5a2e;   /* stickers only, navy text */
+  --color-accent-text: #c23e14;     /* accent as text on blush */
+  --color-accent-night: #c23e14;    /* accent as text on the butter ground */
+  --color-success: #2f7a4a;
+  --color-warning: #c23e14;
+  --color-danger: #b3261e;
+
+  /* Colour blocks (one per specialist, stickers) */
+  --color-block-peri: #8a90f2;
+  --color-block-butter: #f6d66b;
+  --color-block-blush: #f4c3cf;
+  --color-block-peri-soft: #e4e5fd;
+
+  /* Roles: "night" ground — same blush as the page since v5 (was navy, then butter). Section treatment, not a theme toggle */
+  --color-night: #fbf6f4;
+  --color-night-surface: #ffffff;
+  --color-night-surface-2: #eef0f5;
+  --color-night-text: #141c30;
+  --color-night-muted: #5d6175;
+
+  /* Type */
+  --font-display: "League Gothic", "Arial Narrow", sans-serif;
+  --font-text: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace; /* not used by design */
+  --type-base: 17px;
+  --type-ratio: 1.25;
+  --display-scale: 1.18;            /* League Gothic is narrow; display sizes run large */
+  --tracking-display: 0.005em;
+  --tracking-label: 0.08em;
+  --tracking-sticker: 0.06em;
+
+  --text-display-xl: calc(clamp(52px, 15vw, 88px) * var(--display-scale));
+  --text-display-lg: calc(clamp(44px, 12vw, 96px) * var(--display-scale));
+  --text-display: calc(64px * var(--display-scale));
+  --text-h2: calc(clamp(34px, 9vw, 54px) * var(--display-scale));
+  --text-h3: calc(28px * var(--display-scale));
+  --text-figure: calc(36px * var(--display-scale));
+  --text-body-lg: calc(var(--type-base) + 1px);
+  --text-body: var(--type-base);
+  --text-small: 15px;
+  --text-label: calc(var(--type-base) / var(--type-ratio));
+  --text-sticker: 12px;
+
+  --leading-display: 0.92;
+  --leading-h2: 0.95;
+  --leading-body: 1.55;
+
+  /* Space */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 56px;
+  --space-10: 72px;
+  --space-section: clamp(56px, 9vw, 104px);
+  --gutter: 20px;
+  --container: 1080px;
+  --measure: 44ch;
+
+  /* Shape */
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+  --border-width: 1px;
+  --shadow-none: none; /* design uses borders and colour blocks, not shadows */
+  --sticker-rotate: -6deg;
+  --sticker-rotate-alt: 8deg;
+
+  /* Motion */
+  --motion-fast: 120ms;
+  --motion-base: 200ms;
+  --motion-slow: 320ms;
+  --motion-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --motion-distance: 0px;
+
+  /* Components */
+  --button-height: 56px;
+  --button-max-width: 360px;
+  --input-height: 56px;
+  --tap-min: 44px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-base: 0ms;
+    --motion-slow: 0ms;
+  }
+}

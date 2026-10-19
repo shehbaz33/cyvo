@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cyvo · Round B variants</title>
+<style>
+  body { margin: 0; background: #2f2b25; color: #f0eae3; font: 15px/1.5 system-ui, sans-serif; }
+  header { padding: 20px 24px 8px; }
+  header h1 { font-size: 18px; margin: 0 0 4px; }
+  header p { margin: 0; color: #a6a199; max-width: 80ch; }
+  .toggle { margin-top: 12px; display: flex; gap: 8px; }
+  .toggle button { background: transparent; color: #f0eae3; border: 1px solid #59544e; border-radius: 99px; padding: 6px 14px; cursor: pointer; font: inherit; }
+  .toggle button[aria-pressed="true"] { background: #e3a23b; color: #1c1812; border-color: #e3a23b; }
+  .row { display: flex; gap: 24px; padding: 16px 24px 32px; overflow-x: auto; }
+  figure { margin: 0; flex: none; }
+  figcaption { margin-bottom: 8px; max-width: 390px; }
+  figcaption b { display: block; font-size: 16px; }
+  figcaption span { color: #a6a199; font-size: 13px; }
+  figcaption a { color: #e3a23b; font-size: 13px; }
+  iframe { width: 390px; height: 844px; border: 0; border-radius: 24px; background: #fff; display: block; }
+  body.desk iframe { width: 1100px; height: 760px; border-radius: 10px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Cyvo · Round B: three rhythms for “After hours + portraits”</h1>
+  <p>Same look (night hero, Fraunces, marigold, line-art team). Each variant changes the order and rhythm of the full page: finding, tell it once, report card, receptionist, team, final call to action.</p>
+  <div class="toggle">
+    <button aria-pressed="true" onclick="set(false,this)">Phone 390px</button>
+    <button aria-pressed="false" onclick="set(true,this)">Desktop</button>
+  </div>
+</header>
+<div class="row">
+  <figure>
+    <figcaption><b>B1 · Night to morning</b><span>Classic sections in order. Dark hero, paper body, dark close. Steady, easy to scan.</span> <a href="b1-night-to-morning.html" target="_blank">open ↗</a></figcaption>
+    <iframe src="b1-night-to-morning.html" title="B1"></iframe>
+  </figure>
+  <figure>
+    <figcaption><b>B2 · Proof first</b><span>Patient chat inside the hero, a full-width marigold band for the finding, “you type → Cyvo does”, swipeable team cards.</span> <a href="b2-proof-first.html" target="_blank">open ↗</a></figcaption>
+    <iframe src="b2-proof-first.html" title="B2"></iframe>
+  </figure>
+  <figure>
+    <figcaption><b>B3 · One night, minute by minute</b><span>The whole page is a timeline from 8 pm to Sunday. Night entries dark, morning entries on paper. Team members appear when they act.</span> <a href="b3-one-night.html" target="_blank">open ↗</a></figcaption>
+    <iframe src="b3-one-night.html" title="B3"></iframe>
+  </figure>
+</div>
+<script>
+  function set(desk, btn) {
+    document.body.classList.toggle('desk', desk);
+    document.querySelectorAll('.toggle button').forEach(b => b.setAttribute('aria-pressed', b === btn));
+  }
+</script>
+</body>
+</html>

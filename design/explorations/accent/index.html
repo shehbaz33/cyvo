@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cyvo · palette options</title>
+<style>
+  body { margin: 0; background: #222; color: #eee; font: 15px/1.5 system-ui, sans-serif; }
+  header { padding: 20px 24px 4px; } h1 { font-size: 18px; margin: 0 0 4px; } header p { margin: 0; color: #aaa; max-width: 90ch; }
+  .toggle { margin-top: 12px; display: flex; gap: 8px; }
+  .toggle button { background: transparent; color: #eee; border: 1px solid #555; border-radius: 99px; padding: 6px 14px; cursor: pointer; font: inherit; }
+  .toggle button[aria-pressed="true"] { background: #eee; color: #111; }
+  .row { display: flex; gap: 20px; padding: 16px 24px 32px; overflow-x: auto; }
+  figure { margin: 0; flex: none; } figcaption { margin-bottom: 8px; max-width: 390px; }
+  figcaption b { font-size: 16px; } figcaption span { display: block; color: #aaa; font-size: 13px; }
+  .sw { display: inline-flex; gap: 3px; margin-right: 8px; vertical-align: -2px; } .sw i { width: 14px; height: 14px; border-radius: 50%; border: 1px solid #444; }
+  iframe { width: 390px; height: 1500px; border: 0; border-radius: 20px; background: #fff; }
+</style>
+</head>
+<body>
+<header><h1>Cyvo · palettes, round 2 (backgrounds changed too)</h1>
+<p>No more cream paper. Each palette changes the night ground, the morning ground and the accent. Use the toggle to see the same palettes with a grotesk headline font instead of the serif.</p>
+<div class="toggle"><button aria-pressed="true" onclick="f('',this)">Serif headlines</button><button aria-pressed="false" onclick="f('&sans',this)">Grotesk headlines</button></div></header>
+<div class="row">
+  <figure><figcaption><b><span class="sw"><i style="background:#0e1726"></i><i style="background:#f2f4f7"></i><i style="background:#d0371f"></i></span>1 · Midnight navy + BEST-bus red</b><span>Mumbai’s red buses at night. Navy night, cool grey-white morning, signal red. Local without being cute.</span></figcaption><iframe data-p="p1" src="page.html#p1"></iframe></figure>
+  <figure><figcaption><b><span class="sw"><i style="background:#111410"></i><i style="background:#f3f4ee"></i><i style="background:#c6f432"></i></span>2 · Black + electric lime</b><span>From your own references (Osce, SmileLab). Sharpest and most modern. Lime is a fill only, always with black text.</span></figcaption><iframe data-p="p2" src="page.html#p2"></iframe></figure>
+  <figure><figcaption><b><span class="sw"><i style="background:#0b1033"></i><i style="background:#ffffff"></i><i style="background:#3550ff"></i></span>3 · Cobalt night + pure white</b><span>Crisp, clinical-precise, Swiss. Electric cobalt, not dusty clinic blue. Most “serious product”.</span></figcaption><iframe data-p="p3" src="page.html#p3"></iframe></figure>
+  <figure><figcaption><b><span class="sw"><i style="background:#15171a"></i><i style="background:#e8eef4"></i><i style="background:#d6246e"></i></span>4 · Charcoal + rani pink, sky morning</b><span>Rani pink is unmistakably Indian; morning is a pale dawn-sky blue. Boldest, most memorable.</span></figcaption><iframe data-p="p4" src="page.html#p4"></iframe></figure>
+</div>
+<script>
+  function f(suffix, btn) {
+    document.querySelectorAll('iframe').forEach(fr => { fr.src = 'page.html#' + fr.dataset.p + suffix; fr.contentWindow && fr.contentWindow.location.reload(); });
+    document.querySelectorAll('.toggle button').forEach(b => b.setAttribute('aria-pressed', b === btn));
+  }
+</script>
+</body>
+</html>

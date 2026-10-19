@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cyvo · B3 · One night, minute by minute</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbf6ee; --surface: #ffffff; --surface-2: #f0eae3;
+    --text: #1c1812; --muted: #6a655e; --border: #dcd6cf;
+    --night: #1c1812; --night-2: #2f2b25; --night-3: #443f39; --night-text: #f0eae3; --night-muted: #a6a199;
+    --accent: #e3a23b; --accent-soft: #f9e8d2; --accent-text: #8a5b00; --live: #2f7a4a;
+    --serif: "Fraunces", Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--text); font: 17px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+  .night { background: var(--night); color: var(--night-text); }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+  .wordmark { font: 600 25px/1 var(--serif); letter-spacing: -0.02em; color: inherit; text-decoration: none; }
+  .wordmark span { color: var(--accent); }
+  .nav small { color: var(--night-muted); font-size: 14px; }
+  .hero { padding: 28px 0 56px; }
+  h1 { font: 400 clamp(40px, 10.5vw, 76px)/1.02 var(--serif); letter-spacing: -0.03em; max-width: 13ch; }
+  h1 em { color: var(--accent); }
+  .sub { font-size: 18px; color: var(--night-muted); max-width: 34ch; margin: 18px 0 26px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 26px; border-radius: 99px; background: var(--accent); color: var(--text); font: 600 17px/1 var(--sans); text-decoration: none; width: 100%; max-width: 360px; }
+  .btn.ink { background: var(--text); color: var(--bg); }
+  .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .founder { margin-top: 18px; font-size: 15px; color: var(--night-muted); }
+  .founder b { color: var(--night-text); }
+  .scroll-hint { margin-top: 40px; font-size: 13px; color: var(--night-muted); letter-spacing: .06em; text-transform: uppercase; }
+
+  /* timeline */
+  .tl { position: relative; }
+  .ev { display: grid; grid-template-columns: 1fr; padding: 40px 0 44px; position: relative; }
+  @media (min-width: 760px) { .ev { grid-template-columns: 170px 1fr; gap: 24px; } }
+  .ev + .ev { border-top: 1px solid var(--border); }
+  .night .ev + .ev { border-top-color: var(--night-2); }
+  .ev time { font: 400 clamp(40px, 11vw, 56px)/1 var(--serif); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; display: block; margin-bottom: 14px; }
+  .night .ev time { color: var(--accent); }
+  .ev time small { display: block; font: 600 12px/1.4 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+  .night .ev time small { color: var(--night-muted); }
+  .ev h2 { font: 400 clamp(26px, 6.5vw, 38px)/1.1 var(--serif); letter-spacing: -0.02em; max-width: 18ch; }
+  .ev p.d { color: var(--muted); margin-top: 10px; max-width: 44ch; }
+  .night .ev p.d { color: var(--night-muted); }
+
+  .m { max-width: 88%; padding: 10px 13px; border-radius: 14px; font-size: 15px; line-height: 1.4; margin-top: 8px; width: fit-content; }
+  .chat { margin-top: 20px; max-width: 400px; display: flex; flex-direction: column; }
+  .m.doc { background: var(--night-text); color: var(--text); align-self: flex-end; border-bottom-right-radius: 4px; }
+  .m.cy { background: var(--night-3); border-bottom-left-radius: 4px; }
+  .m.pt { background: var(--night-2); border: 1px solid var(--night-3); border-bottom-left-radius: 4px; }
+  .m small { display: block; font-size: 12px; font-weight: 600; opacity: .7; margin-bottom: 2px; }
+  .m .tr { display: block; font-size: 13px; opacity: .7; margin-top: 2px; }
+  .slots { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .slots span { border: 1px solid var(--night-muted); border-radius: 99px; padding: 3px 10px; font-size: 13px; }
+
+  .who { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .who svg { width: 56px; height: 56px; border-radius: 50%; background: var(--accent-soft); flex: none; }
+  .who p { font-size: 14px; color: var(--muted); }
+  .night .who p { color: var(--night-muted); }
+  .who b { font: 600 18px/1.2 var(--serif); color: var(--text); display: block; }
+  .night .who b { color: var(--night-text); }
+
+  .big { font: 400 clamp(110px, 32vw, 200px)/.85 var(--serif); letter-spacing: -0.05em; color: var(--night-text); margin-top: 8px; }
+  .big small { font-size: .24em; color: var(--night-muted); letter-spacing: 0; margin-left: 6px; }
+  .pill { display: inline-block; margin-top: 14px; font-size: 13px; font-weight: 600; background: var(--accent); color: var(--text); padding: 4px 10px; border-radius: 99px; }
+
+  .dawn { padding: 20px 0; text-align: center; font: italic 400 18px/1 var(--serif); color: var(--muted); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .needs { margin-top: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 14px 16px; max-width: 420px; }
+  .needs header { display: flex; justify-content: space-between; font-weight: 600; font-size: 15px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .needs header span { background: var(--accent); font-size: 12px; padding: 2px 8px; border-radius: 99px; }
+  .needs ul { padding: 0; list-style: none; }
+  .needs li { display: flex; justify-content: space-between; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 15px; align-items: center; }
+  .needs li:last-child { border: 0; }
+  .needs li small { display: block; color: var(--muted); font-size: 13px; }
+  .needs button { flex: none; font: 600 13px var(--sans); border: 1.5px solid var(--text); background: transparent; border-radius: 99px; padding: 6px 12px; }
+  .handled { font-size: 14px; color: var(--muted); margin-top: 10px; }
+
+  .card { margin-top: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 18px; max-width: 460px; }
+  .card-head { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .card-head b { font: 600 17px var(--serif); }
+  .card-head span { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--border); padding: 3px 8px; border-radius: 99px; color: var(--muted); }
+  .line { display: flex; justify-content: space-between; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+  .line b { font: 400 30px/1 var(--serif); font-variant-numeric: tabular-nums; }
+  .line.total { border: 0; background: var(--accent); margin: 12px -6px 0; padding: 14px 12px; border-radius: 12px; font-weight: 600; }
+  .fine { font-size: 13px; color: var(--muted); margin-top: 10px; }
+
+  .later { display: grid; gap: 12px; margin-top: 20px; }
+  @media (min-width: 640px) { .later { grid-template-columns: 1fr 1fr; } }
+  .soon { border: 1px dashed var(--border); border-radius: 18px; padding: 16px; display: grid; grid-template-columns: 52px 1fr; gap: 4px 12px; }
+  .soon svg { width: 52px; height: 52px; border-radius: 50%; background: var(--surface-2); grid-row: span 3; }
+  .soon b { font: 600 20px/1 var(--serif); color: var(--muted); }
+  .soon span { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .soon q { font: italic 400 15.5px/1.35 var(--serif); color: var(--muted); }
+  .note { font-size: 14px; color: var(--muted); margin-top: 14px; }
+
+  .end { padding: 64px 0; border-top: 2px solid var(--text); }
+  .end h2 { font: 400 clamp(30px, 7vw, 48px)/1.06 var(--serif); letter-spacing: -0.02em; max-width: 16ch; }
+  .end p { color: var(--muted); margin: 14px 0 24px; max-width: 40ch; }
+  .end .price { margin-top: 24px; font-size: 15px; }
+  .end .price b { color: var(--text); }
+  footer { padding: 24px 0 40px; font-size: 14px; color: var(--muted); border-top: 1px solid var(--border); display: flex; gap: 16px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div class="night">
+  <div class="wrap">
+    <nav class="nav"><a class="wordmark" href="#">cyvo<span>.</span></a><small>Mumbai</small></nav>
+    <header class="hero">
+      <h1>Your clinic answers WhatsApp at 11&nbsp;pm. <em>Even when you don’t.</em></h1>
+      <p class="sub">A front desk team on your clinic’s own WhatsApp number, set up in person in Mumbai.</p>
+      <a class="btn" href="https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%27d%20like%20a%20demo%20for%20my%20clinic">Message us on WhatsApp</a>
+      <p class="founder"><b>Shehbaz</b> comes to your clinic for a 5-minute demo.</p>
+      <p class="scroll-hint">One night at a sample clinic ↓</p>
+    </header>
+
+    <div class="tl">
+      <article class="ev"><time>8:00<small>pm · Thursday</small></time><div><h2>Your receptionist goes home.</h2><p class="d">Patients keep messaging. Your clinic’s number keeps answering.</p></div></article>
+
+      <article class="ev"><time>9:12<small>pm</small></time><div><h2>You tell it once.</h2>
+        <div class="chat" aria-label="Sample chat between doctor and Cyvo">
+          <div class="m doc">Kal clinic band hai<span class="tr">Clinic is closed tomorrow</span></div>
+          <div class="m cy"><small>Cyvo</small>Noted. 3 patients are booked tomorrow. Shall I move them to Saturday and let them know?</div>
+          <div class="m doc">Haan, Saturday ko shift karo<span class="tr">Yes, move them to Saturday</span></div>
+          <div class="m cy"><small>Cyvo</small>Done. All 3 moved and informed.</div>
+        </div></div></article>
+
+      <article class="ev"><time>10:41<small>pm</small></time><div><h2>A patient asks for tomorrow.</h2>
+        <div class="chat" aria-label="Sample chat between a patient and the clinic">
+          <div class="m pt"><small>Patient</small>Hi, can I get an appointment tomorrow?</div>
+          <div class="m cy"><small>Your clinic</small>We’re closed tomorrow. The next open day is Saturday. Which time suits you?<span class="slots"><span>11:00 am</span><span>12:30 pm</span><span>5:00 pm</span></span></div>
+        </div>
+        <div class="who">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#1c1812" stroke-width="1.6" stroke-linecap="round"><path d="M12 64c2-11 10-15 20-15s18 4 20 15"/><path d="M28 43v6M36 43v6"/><ellipse cx="32" cy="29" rx="10.5" ry="12.5"/><path d="M21.5 27c0-9 4-13 10.5-13s10.5 4 10.5 13c-3-4-9-6-14-5"/><path d="M19 30c0-14 6-19 13-19s13 5 13 19"/><path d="M20 31c1 7 4 9 9 9"/><circle cx="28" cy="29" r=".9" fill="#1c1812"/><circle cx="36" cy="29" r=".9" fill="#1c1812"/><path d="M29 35q3 2 6 0"/></svg>
+          <p><b>Swagat · Live</b>“I answer your patients at 11 pm so they don’t book somewhere else.”</p>
+        </div></div></article>
+
+      <article class="ev"><time>After 10<small>pm · our test</small></time><div><h2>We messaged Mumbai clinics at this hour.</h2>
+        <div class="big">?<small>hours</small></div>
+        <p class="d">Median first reply when we messaged Mumbai clinics after 10 pm. No clinic is named.</p>
+        <span class="pill">Results from our 18 and 25 Oct tests</span></div></article>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <p class="dawn">Morning</p>
+  <div class="tl">
+    <article class="ev"><time>9:00<small>am · Friday</small></time><div><h2>Your receptionist starts with a short list.</h2>
+      <p class="d">Everything routine is done. What needs a person is waiting for her, with a take-over button.</p>
+      <div class="needs" aria-label="Sample needs-you list">
+        <header>Needs you <span>2</span></header>
+        <ul>
+          <li><p>Asks about treatment cost<small>Patient · 10:52 pm</small></p><button type="button">Take over</button></li>
+          <li><p>Wants to speak to the doctor<small>Patient · 7:40 am</small></p><button type="button">Take over</button></li>
+        </ul>
+      </div>
+      <p class="handled">Overnight: 3 booked, 4 questions answered. Gives your receptionist a team. She handles the people.</p></div></article>
+
+    <article class="ev"><time>7:00<small>pm · Friday</small></time><div><h2>Saturday’s patients get a reminder.</h2>
+      <div class="who">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#1c1812" stroke-width="1.6" stroke-linecap="round"><path d="M12 64c2-11 10-15 20-15s18 4 20 15"/><path d="M28 43v6M36 43v6"/><ellipse cx="32" cy="29" rx="10.5" ry="12.5"/><path d="M21.5 30c-2-12 4-17 10.5-17s12.5 5 10.5 17"/><path d="M21.5 26c4-1 9-5 11-9 2 4 6 8 10 9"/><circle cx="32" cy="10" r="4.5"/><circle cx="28" cy="29" r=".9" fill="#1c1812"/><circle cx="36" cy="29" r=".9" fill="#1c1812"/><path d="M29 35q3 2 6 0"/></svg>
+        <p><b>Yaad · Live</b>“I remind your patients the day before, so fewer chairs sit empty.”</p>
+      </div></div></article>
+
+    <article class="ev"><time>Sun<small>9:00 am</small></time><div><h2>Your report card arrives on WhatsApp.</h2>
+      <div class="card" aria-label="Sample weekly report card">
+        <div class="card-head"><b>Sample clinic · this week</b><span>Sample</span></div>
+        <div class="line"><span>Appointments booked</span><b>46</b></div>
+        <div class="line"><span>Of them after hours</span><b>17</b></div>
+        <div class="line"><span>No-shows avoided after a reminder</span><b>6</b></div>
+        <div class="line"><span>New Google reviews</span><b>9</b></div>
+        <div class="line total"><span>Estimated value, after-hours bookings</span><b>₹41,000</b></div>
+      </div>
+      <p class="fine">Invented clinic and figures. The rupee figure is an estimate.</p></div></article>
+
+    <article class="ev"><time>Next<small>coming soon</small></time><div><h2>Two more join the team.</h2>
+      <div class="later">
+        <div class="soon"><svg viewBox="0 0 64 64" fill="none" stroke="#8b857e" stroke-width="1.6" stroke-linecap="round"><path d="M12 64c2-11 10-15 20-15s18 4 20 15"/><path d="M28 43v6M36 43v6"/><ellipse cx="32" cy="29" rx="10.5" ry="12.5"/><path d="M21 25a4 4 0 0 1 4-6a4 4 0 0 1 7-3a4 4 0 0 1 7 3a4 4 0 0 1 4 6"/><circle cx="28" cy="29" r=".9" fill="#8b857e"/><circle cx="36" cy="29" r=".9" fill="#8b857e"/><path d="M28 34q4 3 8 0"/></svg><b>Shukriya</b><span>Coming soon</span><q>I ask every patient for a Google review after their visit.</q></div>
+        <div class="soon"><svg viewBox="0 0 64 64" fill="none" stroke="#8b857e" stroke-width="1.6" stroke-linecap="round"><path d="M12 64c2-11 10-15 20-15s18 4 20 15"/><path d="M28 43v6M36 43v6"/><ellipse cx="32" cy="29" rx="10.5" ry="12.5"/><path d="M21.5 25c2-7 6-9 10.5-9s9 2 10.5 9"/><circle cx="27.5" cy="29" r="3.5"/><circle cx="36.5" cy="29" r="3.5"/><path d="M31 29h2"/><path d="M29 35.5q3 1.5 6 0"/></svg><b>Wapsi</b><span>Coming soon</span><q>I bring back patients who are due for a follow-up.</q></div>
+      </div>
+      <p class="note">Patients never see these names. They just see your clinic.</p></div></article>
+  </div>
+
+  <section class="end">
+    <h2>See it on your own clinic’s number.</h2>
+    <p>Shehbaz comes to your clinic in Mumbai for a 5-minute demo, and sets it up in person.</p>
+    <a class="btn ink" href="https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%27d%20like%20a%20demo%20%28end%29">Message us on WhatsApp</a>
+    <p class="price"><b>One-time setup fee plus a monthly fee.</b> Cancel with one message.</p>
+  </section>
+  <footer><span>Cyvo · Mumbai</span><a href="#">How we handle data</a><a href="#">Instagram</a></footer>
+</div>
+</body>
+</html>

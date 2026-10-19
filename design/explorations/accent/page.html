@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cyvo · palette test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --display: "Fraunces", Georgia, serif; --display-weight: 400; --display-track: -0.03em;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  :root.sans { --display: "Bricolage Grotesque", system-ui, sans-serif; --display-weight: 500; --display-track: -0.04em; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--text); font: 17px/1.55 var(--sans); }
+  .wrap { padding: 0 20px; max-width: 880px; margin: 0 auto; }
+  .night { background: var(--night); color: var(--night-text); }
+  .nav { display: flex; justify-content: space-between; padding: 18px 0; }
+  .wm { font: var(--display-weight) 26px/1 var(--display); letter-spacing: -0.02em; } .wm span { color: var(--accent-night); }
+  .nav small { color: var(--night-muted); font-size: 14px; }
+  h1 { font: var(--display-weight) clamp(40px, 10.5vw, 72px)/1.02 var(--display); letter-spacing: var(--display-track); max-width: 13ch; padding-top: 20px; }
+  h1 em { color: var(--accent-night); }
+  :root.sans h1 em { font-style: normal; }
+  .sub { color: var(--night-muted); font-size: 18px; max-width: 34ch; margin: 18px 0 24px; }
+  .btn { display: flex; align-items: center; justify-content: center; min-height: 56px; border-radius: 99px; background: var(--btn-night); color: var(--btn-night-text); font-weight: 600; max-width: 360px; text-decoration: none; }
+  .day-btn { background: var(--btn-day); color: var(--btn-day-text); }
+  .phone { margin: 32px 0 0; background: var(--night-2); border: 1px solid var(--night-3); border-radius: 20px; padding: 14px; max-width: 380px; }
+  .ph-top { display: flex; justify-content: space-between; font-size: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--night-3); margin-bottom: 10px; }
+  .ph-top span { font: var(--display-weight) 22px/1 var(--display); color: var(--accent-night); }
+  .m { max-width: 86%; padding: 9px 12px; border-radius: 14px; font-size: 15px; line-height: 1.4; margin-bottom: 8px; width: fit-content; }
+  .in { background: var(--night-3); } .out { background: var(--night-text); color: var(--text); margin-left: auto; }
+  .slots { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; } .slots span { border: 1px solid var(--border); border-radius: 99px; padding: 2px 9px; font-size: 13px; }
+  .slots .on { background: var(--btn-day); color: var(--btn-day-text); border-color: transparent; }
+  .ev { padding: 40px 0; border-top: 1px solid var(--night-2); }
+  .ev time { display: block; font: var(--display-weight) 46px/1 var(--display); letter-spacing: var(--display-track); color: var(--accent-night); }
+  .ev time small { display: block; font: 600 12px/1.6 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--night-muted); }
+  .ev h2 { font: var(--display-weight) 30px/1.1 var(--display); letter-spacing: -0.02em; margin-top: 10px; }
+  .dawn { text-align: center; font: italic 400 18px var(--display); color: var(--muted); padding: 18px; border-bottom: 1px solid var(--border); }
+  :root.sans .dawn { font-style: normal; }
+  .day time { color: var(--text); } .day time small { color: var(--muted); } .day { border-top: 0; }
+  .eyebrow { font: 600 13px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--accent-text); margin-top: 8px; }
+  .card { margin-top: 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 16px; }
+  .line { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+  .line b { font: var(--display-weight) 28px/1 var(--display); }
+  .total { background: var(--btn-day); color: var(--btn-day-text); border: 0; border-radius: 12px; padding: 14px 12px; margin-top: 10px; font-weight: 600; }
+  .tag { display: inline-block; margin-top: 16px; background: var(--accent-soft); color: var(--accent-text); font: 600 13px var(--sans); padding: 4px 10px; border-radius: 99px; }
+  .end { padding: 40px 0 56px; }
+</style>
+</head>
+<body>
+<div class="night"><div class="wrap">
+  <div class="nav"><span class="wm">cyvo<span>.</span></span><small>Mumbai</small></div>
+  <h1>Your clinic answers WhatsApp at 11&nbsp;pm. <em>Even when you don’t.</em></h1>
+  <p class="sub">A front desk team of specialists on your clinic’s own WhatsApp number, set up in person in Mumbai.</p>
+  <a class="btn" href="#">Message us on WhatsApp</a>
+  <div class="phone"><div class="ph-top"><b>Sample clinic</b><span>10:41 pm</span></div>
+    <div class="m in">Hi, can I get an appointment tomorrow?</div>
+    <div class="m out">We’re closed tomorrow. Saturday is open. Which time suits you?<span class="slots"><span>11:00</span><span class="on">12:30</span><span>5:00</span></span></div>
+  </div>
+  <div class="ev"><time>9:12<small>pm · Thursday</small></time><h2>You tell the team once.</h2></div>
+</div></div>
+<div class="wrap">
+  <p class="dawn">Morning</p>
+  <div class="ev day"><time>Sun<small>9:00 am</small></time><p class="eyebrow">Every Sunday</p><h2>Your report card arrives.</h2>
+    <div class="card"><div class="line"><span>Appointments booked</span><b>46</b></div><div class="line"><span>After hours</span><b>17</b></div>
+    <div class="line total"><span>Estimated value</span><b style="font:var(--display-weight) 28px/1 var(--display)">₹41,000</b></div></div>
+    <span class="tag">Sample clinic</span></div>
+  <div class="end"><a class="btn day-btn" href="#">Message us on WhatsApp</a></div>
+</div>
+<script>
+  // bg, surface, surface-2, text, muted, border, night, night-2, night-3, night-text, night-muted,
+  // accent-night (accent on night), btn-night, btn-night-text, btn-day, btn-day-text, accent-text, accent-soft
+  const P = {
+    p1: ['#f2f4f7','#ffffff','#e6e9ef','#0e1726','#5a6474','#d5dae3','#0e1726','#1a2538','#2a3650','#eef1f6','#9aa6b8','#ff7a66','#d0371f','#ffffff','#d0371f','#ffffff','#c2321f','#fde4df'],
+    p2: ['#f3f4ee','#ffffff','#e7e9e0','#111410','#5f6359','#d6d9cd','#111410','#1d211b','#2e332b','#eef0e8','#9ea397','#c6f432','#c6f432','#111410','#111410','#c6f432','#4c6b00','#eef8cc'],
+    p3: ['#ffffff','#f4f6fb','#e9edf7','#0b1033','#5b6178','#dde2ef','#0b1033','#161c45','#252c5e','#eef0fa','#9aa0bc','#8c9bff','#3550ff','#ffffff','#3550ff','#ffffff','#3550ff','#e6eaff'],
+    p4: ['#e8eef4','#ffffff','#dbe3ec','#15171a','#56606b','#c9d3de','#15171a','#22252a','#33373e','#eef1f4','#a0a6ae','#ff6fa8','#d6246e','#ffffff','#d6246e','#ffffff','#b81e5e','#fbe0eb'],
+  };
+  const keys = ['bg','surface','surface-2','text','muted','border','night','night-2','night-3','night-text','night-muted','accent-night','btn-night','btn-night-text','btn-day','btn-day-text','accent-text','accent-soft'];
+  const [pal, font] = location.hash.slice(1).split('&');
+  const vals = P[pal] || P.p1;
+  keys.forEach((k, i) => document.documentElement.style.setProperty('--' + k, vals[i]));
+  if (font === 'sans') document.documentElement.classList.add('sans');
+</script>
+</body>
+</html>

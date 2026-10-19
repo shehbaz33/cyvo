@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Cyvo handles data</title>
+<meta name="description" content="What Cyvo stores, where, for how long, who can see it, and how to ask for deletion. Plain language.">
+<meta name="theme-color" content="#fbf6f4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111a2e'/%3E%3Ctext x='7' y='25' font-family='Arial Narrow,Arial,sans-serif' font-weight='700' font-size='22' fill='%23f3f5f9'%3EC%3C/text%3E%3Ccircle cx='24' cy='22' r='3' fill='%23ff8a63'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Gothic&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-bg: #fbf6f4; --color-surface: #ffffff; --color-text: #141c30; --color-text-muted: #5d6175; --color-border: #e6deda;
+    --color-accent: #cf4417; --color-accent-text: #c23e14; --color-accent-night: #c23e14;
+    --color-block-butter: #f6d66b; --color-block-peri-soft: #e4e5fd;
+    --color-night: #fbf6f4; --color-night-surface: rgba(20, 28, 48, 0.1); --color-night-text: #141c30; --color-night-muted: #5d6175;
+    --font-display: "League Gothic", "Arial Narrow", sans-serif;
+    --font-text: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --display-scale: 1.18;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--color-bg); color: var(--color-text); font: 17px/1.6 var(--font-text); -webkit-font-smoothing: antialiased; }
+  a { color: var(--color-accent-text); font-weight: 600; }
+  a:focus-visible { outline: 3px solid var(--color-text); outline-offset: 3px; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+  .D { font-family: var(--font-display); font-weight: 400; letter-spacing: 0.005em; text-transform: uppercase; }
+  header { background: var(--color-night); color: var(--color-night-text); padding-bottom: 40px; }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--color-night-surface); margin-bottom: 36px; }
+  .nav a { color: var(--color-night-text); text-decoration: none; }
+  .wordmark { font-size: calc(30px * var(--display-scale)); line-height: 1; font-weight: 400; }
+  .wordmark span { color: var(--color-accent-night); }
+  .nav .back { font-size: 15px; font-weight: 600; }
+  h1 { font-size: calc(clamp(44px, 12vw, 80px) * var(--display-scale)); line-height: 0.92; max-width: 12ch; }
+  header p { color: var(--color-night-muted); margin-top: 16px; max-width: 46ch; }
+  main { padding: 16px 0 64px; }
+  section { padding: 28px 0; border-bottom: 1px solid var(--color-border); }
+  h2 { font-size: calc(36px * var(--display-scale)); line-height: 0.95; margin-bottom: 12px; }
+  p + p, p + ul, ul + p { margin-top: 12px; }
+  ul { padding-left: 20px; }
+  li + li { margin-top: 6px; }
+  .muted { color: var(--color-text-muted); }
+  .tbd { background: var(--color-block-butter); padding: 0 6px; border-radius: 4px; font-weight: 600; }
+  .box { background: var(--color-block-peri-soft); padding: 18px; margin-top: 12px; }
+  footer { border-top: 1px solid var(--color-border); padding: 24px 0 40px; font-size: 14px; color: var(--color-text-muted); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+  footer a { color: inherit; font-weight: 400; }
+</style>
+</head>
+<body>
+<!-- Replace every highlighted [placeholder] before launch. Keep the language plain;
+     do not claim certification or "fully compliant". -->
+<header>
+  <div class="wrap">
+    <nav class="nav" aria-label="Main"><a class="wordmark D" href="/">cyvo<span>.</span></a><a class="back" href="/">← Back</a></nav>
+    <h1 class="D">How we handle your patients’ data</h1>
+    <p>Plain language, no fine print. Written with India’s Digital Personal Data Protection Act, 2023 (DPDP Act) in mind.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <h2 class="D">What we store</h2>
+    <ul>
+      <li>Your clinic profile: name, address, timings, doctors, and the instructions you give the team.</li>
+      <li>Appointments: date, time and the type of visit.</li>
+      <li>Patient names and phone numbers.</li>
+      <li>WhatsApp message history between your clinic and your patients, so the team can follow the conversation.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="D">What we never store</h2>
+    <p>No diagnoses, prescriptions or medical records.</p>
+    <p><span class="tbd">[Confirm, then keep or delete: what happens if a patient sends a report or prescription on WhatsApp]</span></p>
+  </section>
+
+  <section>
+    <h2 class="D">Where and for how long</h2>
+    <p>Data is stored on servers in <span class="tbd">[location, e.g. India (Mumbai region)]</span>.</p>
+    <p>We keep message history for <span class="tbd">[retention period]</span> and appointment records for <span class="tbd">[retention period]</span>. When you stop using Cyvo, we delete your clinic’s data within <span class="tbd">[number]</span> days.</p>
+  </section>
+
+  <section>
+    <h2 class="D">Who can see it</h2>
+    <ul>
+      <li>Your clinic’s own staff, through your WhatsApp and the receptionist’s take-over view.</li>
+      <li>Cyvo, only to set up your account and fix problems you report to us.</li>
+    </ul>
+    <p><span class="tbd">[Confirm: we do not sell data, share it with advertisers or use it for marketing.]</span> This website has no ad trackers or tracking pixels.</p>
+  </section>
+
+  <section>
+    <h2 class="D">How we protect it</h2>
+    <ul>
+      <li>Patient phone numbers are encrypted at rest.</li>
+    </ul>
+    <p><span class="tbd">[Optional: add other safeguards you actually have, e.g. who at Cyvo can access data]</span></p>
+  </section>
+
+  <section>
+    <h2 class="D">Your agreement and your patients</h2>
+    <p>Each clinic signs a short data agreement with Cyvo before we go live. Your clinic tells its patients that appointments are handled on WhatsApp with Cyvo’s help.</p>
+  </section>
+
+  <section>
+    <h2 class="D">Deleting data</h2>
+    <p><b>Clinics:</b> send one WhatsApp message asking us to delete your data. We confirm when it is done.</p>
+    <p><b>Patients:</b> ask your clinic, or write to us directly at the address below. We delete your name, number and messages within <span class="tbd">[number]</span> days and confirm with you.</p>
+  </section>
+
+  <section>
+    <h2 class="D">Questions about data</h2>
+    <div class="box">
+      <p>Email: <a href="mailto:[data@your-domain]"><span class="tbd">[data@your-domain]</span></a><br>
+      Or message Cyvo on WhatsApp.</p>
+    </div>
+    <p class="muted">Last updated: <span class="tbd">[date]</span></p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Cyvo · Mumbai</span>
+    <a href="/">Home</a>
+    <a href="https://instagram.com/cyvowork" rel="noopener">Instagram</a>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,991 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cyvo · Your clinic answers WhatsApp at 11 pm</title>
+<meta name="description" content="A team of front desk specialists on your clinic's own WhatsApp number. Answers and books patients day and night. Set up in person in Mumbai.">
+<meta name="theme-color" content="#fbf6f4">
+
+<!-- Open Graph: replace YOUR-DOMAIN before launch (WhatsApp needs an absolute image URL) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Your clinic answers WhatsApp at 11 pm. Even when you don't.">
+<meta property="og:description" content="A team of front desk specialists on your clinic's own WhatsApp number, set up in person in Mumbai.">
+<meta property="og:image" content="https://YOUR-DOMAIN/images/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111a2e'/%3E%3Ctext x='7' y='25' font-family='Arial Narrow,Arial,sans-serif' font-weight='700' font-size='22' fill='%23f3f5f9'%3EC%3C/text%3E%3Ccircle cx='24' cy='22' r='3' fill='%23ff8a63'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Gothic&display=swap" rel="stylesheet">
+
+<script>
+  /* ============ CONFIG: change the WhatsApp number and messages here ============
+     The links below also contain this number as a fallback for browsers without
+     JavaScript. If you change the number, find-and-replace 91XXXXXXXXXX in this file. */
+  window.CYVO = {
+    whatsappNumber: '91XXXXXXXXXX',
+    messageHero: "Hi, I'd like a demo for my clinic",
+    messageEnd: "Hi, I'd like a demo for my clinic (end)"
+  };
+  // Scroll story runs only with JS and when the visitor has not asked for reduced motion.
+  // Without it, every scene renders as a normal, fully readable section.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
+</script>
+
+<style>
+  /* Tokens from design/tokens.css (DESIGN.md v3). Inline so the page is a single file. */
+  :root {
+    --color-bg: #fbf6f4; --color-surface: #ffffff; --color-surface-2: #f3ece8;
+    --color-text: #141c30; --color-text-muted: #5d6175; --color-border: #e6deda;
+    --color-accent: #cf4417; --color-accent-hover: #b93c13; --color-accent-contrast: #ffffff;
+    --color-accent-bright: #ea5a2e; --color-accent-text: #c23e14; --color-accent-night: #c23e14;
+    --color-success: #2f7a4a;
+    --color-block-peri: #8a90f2; --color-block-butter: #f6d66b; --color-block-blush: #f4c3cf; --color-block-peri-soft: #e4e5fd;
+    /* "Night" ground is the same blush as the page (v5). Names kept so the scene CSS stays readable. */
+    --color-night: #fbf6f4; --color-night-surface: #ffffff; --color-night-surface-2: #eef0f5;
+    --color-night-text: #141c30; --color-night-muted: #5d6175;
+
+    --font-display: "League Gothic", "Arial Narrow", sans-serif;
+    --font-text: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --display-scale: 1.18;
+    --text-display-xl: calc(clamp(52px, 15vw, 88px) * var(--display-scale));
+    --text-display-lg: calc(clamp(44px, 12vw, 96px) * var(--display-scale));
+    --text-display: calc(64px * var(--display-scale));
+    --text-h2: calc(clamp(34px, 9vw, 54px) * var(--display-scale));
+    --text-h3: calc(28px * var(--display-scale));
+    --text-figure: calc(36px * var(--display-scale));
+
+    --space-section: clamp(56px, 9vw, 104px);
+    --gutter: 20px;
+    --container: 1080px;
+    --radius-sm: 4px; --radius-md: 14px; --radius-lg: 18px; --radius-full: 9999px;
+    --motion-fast: 120ms; --motion-base: 400ms; --motion-slow: 700ms;
+    --motion-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --scene-step: 70vh;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { background: var(--color-bg); color: var(--color-text); font: 17px/1.55 var(--font-text); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  .wrap { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+  @media (max-width: 359px) { :root { --gutter: 16px; } }
+
+  .D { font-family: var(--font-display); font-weight: 400; letter-spacing: 0.005em; text-transform: uppercase; }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 24px; width: 100%; max-width: 360px;
+    border-radius: var(--radius-sm); background: var(--color-accent); color: var(--color-accent-contrast);
+    font: 600 17px/1.2 var(--font-text); text-decoration: none; text-align: center; transition: background var(--motion-fast) var(--motion-ease); }
+  .btn:hover, .btn:active { background: var(--color-accent-hover); }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--color-text); outline-offset: 3px; }
+  .night a:focus-visible { outline-color: var(--color-night-text); }
+
+  /* Stickers */
+  .sticker { display: inline-block; width: fit-content; padding: 7px 12px; border-radius: var(--radius-full); color: var(--color-text);
+    font: 700 12px/1 var(--font-text); letter-spacing: 0.06em; text-transform: uppercase; transform: rotate(-6deg); }
+  .sticker.alt { transform: rotate(8deg); }
+  .s-peri { background: var(--color-block-peri); } .s-butter { background: var(--color-block-butter); }
+  .s-blush { background: var(--color-block-blush); } .s-tomato { background: var(--color-accent-bright); }
+
+  .eyebrow { font: 700 13px/1.4 var(--font-text); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-text); }
+  .night .eyebrow { color: var(--color-accent-night); }
+  .label-sample { font-size: 13px; color: var(--color-text-muted); }
+  .night .label-sample { color: var(--color-night-muted); }
+
+  /* ---------------- Scroll guidance ---------------- */
+  .page-progress, .chapters, .scroll-cue { display: none; }
+  .motion .page-progress { display: block; position: fixed; z-index: 50; top: 0; left: 0; right: 0; height: 3px; pointer-events: none; }
+  .page-progress i { display: block; height: 100%; width: 100%; background: var(--color-accent); transform-origin: 0 50%; transform: scaleX(var(--page, 0)); }
+  @media (min-width: 1100px) {
+    .motion .chapters { display: flex; flex-direction: column; gap: 10px; position: fixed; z-index: 40; right: 24px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity var(--motion-base); pointer-events: none; }
+    .motion .chapters.show { opacity: 1; }
+    .chapters a { display: flex; align-items: center; justify-content: flex-end; gap: 8px; font: 700 11px/1 var(--font-text); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); opacity: 0.55; transition: opacity var(--motion-base), color var(--motion-base); }
+    .chapters a::after { content: ""; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid currentColor; transition: background var(--motion-base), transform var(--motion-base); }
+    .chapters a.on { opacity: 1; color: var(--color-text); }
+    .chapters a.on::after { background: var(--color-accent); border-color: var(--color-accent); transform: scale(1.25); }
+    .chapters a.done::after { background: currentColor; }
+  }
+  .motion .scroll-cue { display: flex; align-items: center; gap: 10px; position: fixed; z-index: 45; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); transform: translate(-50%, 20px);
+    padding: 6px 16px 6px 6px; border-radius: var(--radius-full); background: var(--color-text); color: #fff; font: 600 14px/1 var(--font-text); white-space: nowrap;
+    opacity: 0; pointer-events: none; transition: opacity var(--motion-base) var(--motion-ease), transform var(--motion-base) var(--motion-ease); }
+  .motion .scroll-cue.show { opacity: 1; transform: translate(-50%, 0); }
+  @media (min-width: 760px) {
+    .motion .scroll-cue { left: 24px; transform: translateY(20px); }
+    .motion .scroll-cue.show { transform: none; }
+  }
+  @media (max-width: 759px) {
+    .motion .scroll-cue.hero { opacity: 0; }
+    .motion .stage { padding-bottom: 64px; box-sizing: border-box; }
+  }
+  .ring { position: relative; width: 36px; height: 36px; flex: none; }
+  .ring svg { width: 36px; height: 36px; transform: rotate(-90deg); }
+  .ring circle { fill: none; stroke-width: 3; }
+  .ring .track { stroke: rgba(255, 255, 255, 0.22); }
+  .ring .fill { stroke: var(--color-accent-bright); stroke-dasharray: 97.4; stroke-dashoffset: calc(97.4 * (1 - var(--scene, 0))); transition: stroke-dashoffset 120ms linear; }
+  .chev { position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; border-right: 2px solid #fff; border-bottom: 2px solid #fff; transform: translate(-50%, -70%) rotate(45deg); animation: nudge 1.4s var(--motion-ease) infinite; }
+  .scroll-cue.done .chev { animation: none; border: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--color-accent-bright); transform: translate(-50%, -50%); }
+  @keyframes nudge { 0%, 100% { transform: translate(-50%, -80%) rotate(45deg); } 50% { transform: translate(-50%, -30%) rotate(45deg); } }
+
+  /* ---------------- Night ground + hero ---------------- */
+  .night { background: var(--color-night); color: var(--color-night-text); }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(20, 28, 48, 0.1); }
+  .wordmark { font-size: calc(30px * var(--display-scale)); line-height: 1; text-decoration: none; }
+  .wordmark span { color: var(--color-accent-night); }
+  .nav-btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1.5px solid var(--color-text); border-radius: var(--radius-sm);
+    font-size: 15px; font-weight: 600; text-decoration: none; }
+
+  .hero { display: grid; gap: 20px; padding: 36px 0 48px; }
+  .hero-team { margin-top: 24px; }
+  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .tile { position: relative; margin: 0; background: var(--tile); aspect-ratio: 400 / 410; overflow: visible; }
+  .tile img { width: 100%; height: 100%; object-fit: cover; }
+  .tile .sticker { position: absolute; top: 10px; left: 8px; font-size: 10.5px; padding: 6px 10px; }
+  .tile figcaption { position: absolute; left: 0; bottom: 0; background: var(--color-surface); color: var(--color-text); font-size: calc(20px * var(--display-scale)); line-height: 1; padding: 6px 10px 5px; }
+  .note-pop { position: absolute; z-index: 2; right: 6px; bottom: 36px; max-width: 80%; white-space: nowrap; background: var(--color-text); color: #fff; font-size: 13.5px; line-height: 1.3; padding: 8px 11px; border-radius: var(--radius-md); border-bottom-right-radius: 4px; box-shadow: none; }
+  .note-pop small { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; opacity: 0.7; margin-bottom: 2px; }
+  .motion .note-pop { opacity: 0; transform: translateY(10px) scale(0.96); transition: opacity var(--motion-base) var(--motion-ease), transform var(--motion-base) var(--motion-ease); }
+  .motion .note-pop.on { opacity: 1; transform: none; }
+  .motion .tile { opacity: 0; transform: translateY(16px); animation: tileIn var(--motion-slow) var(--motion-ease) forwards; }
+  .motion .tile:nth-child(2) { animation-delay: 120ms; } .motion .tile:nth-child(3) { animation-delay: 240ms; } .motion .tile:nth-child(4) { animation-delay: 360ms; }
+  @keyframes tileIn { to { opacity: 1; transform: none; } }
+  .hero .caption { color: var(--color-text-muted); }
+  .hero .sticker { margin-bottom: 18px; }
+  h1 { font-size: var(--text-display-xl); line-height: 0.92; max-width: 11ch; }
+  h1 em { font-style: normal; color: var(--color-accent-night); }
+  .sub { font-size: 18px; color: var(--color-night-muted); max-width: 34ch; margin: 0 0 26px; }
+  @media (min-width: 1000px) {
+    .hero { grid-template-columns: 1fr 1fr; grid-template-areas: "head head" "copy phone"; column-gap: 64px; row-gap: 36px; align-items: start; padding: 56px 0 72px; }
+    .hero-head { grid-area: head; } .hero-copy { grid-area: copy; } .hero-team { grid-area: phone; margin-top: 0; justify-self: end; width: 100%; max-width: 500px; }
+    .hero h1 { max-width: 20ch; }
+    .hero h1 em { display: block; }
+    .hero .sub { font-size: 20px; }
+  }
+  .founder { display: flex; align-items: center; gap: 12px; margin-top: 18px; font-size: 15px; color: var(--color-night-muted); }
+  .founder b { color: var(--color-night-text); font-weight: 600; }
+  .avatar { flex: none; width: 48px; height: 48px; border-radius: 50%; background: var(--color-surface); border: 1.5px solid var(--color-text); color: var(--color-text);
+    display: grid; place-items: center; font-family: var(--font-display); font-size: 26px; overflow: hidden; }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+  .phone { position: relative; background: var(--color-night-surface); border: 1px solid rgba(20, 28, 48, 0.08); border-radius: var(--radius-lg); padding: 24px 14px 14px; max-width: 420px; }
+  .phone > .sticker { position: absolute; right: -4px; top: -14px; }
+  .phone-top { display: flex; justify-content: space-between; align-items: baseline; padding: 0 2px 10px; margin-bottom: 12px; border-bottom: 1px solid var(--color-night-surface-2); font-size: 14px; font-weight: 600; }
+  .phone-top span { font-size: calc(26px * var(--display-scale)); line-height: 1; color: var(--color-accent-night); font-weight: 400; }
+  .caption { font-size: 13px; color: var(--color-night-muted); margin-top: 10px; }
+
+  /* Chat bubbles */
+  .chat { display: flex; flex-direction: column; gap: 8px; }
+  .msg { max-width: 86%; width: fit-content; padding: 9px 12px; border-radius: var(--radius-md); font-size: 15px; line-height: 1.4; }
+  .msg small { display: block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; opacity: 0.7; margin-bottom: 2px; }
+  .msg .tr { display: block; font-size: 13px; opacity: 0.75; margin-top: 2px; }
+  .msg.left { border-bottom-left-radius: 4px; }
+  .msg.right { margin-left: auto; border-bottom-right-radius: 4px; }
+  .msg.patient { background: var(--color-night-surface-2); }
+  .msg.reply, .msg.doc { background: var(--color-text); color: #ffffff; }
+  .msg.reply .slots span, .msg.doc .slots span { border-color: rgba(255, 255, 255, 0.45); }
+  .msg.reply .slots .on { background: #ffffff; color: var(--color-text); border-color: #ffffff; }
+  .msg.cyvo { background: var(--color-night-surface-2); }
+  .chat-divider { align-self: center; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent-night); padding: 6px 0; }
+  .slots { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .slots span { border: 1px solid #c5ccd9; border-radius: var(--radius-full); padding: 2px 10px; font-size: 13px; }
+  .slots .on { background: var(--color-text); color: #ffffff; border-color: var(--color-text); }
+  .motion .hint-arrow { display: inline-block; animation: hint 1.4s var(--motion-ease) infinite; }
+  @keyframes hint { 50% { transform: translateY(4px); } }
+  .scroll-hint { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-night-muted); padding-bottom: 24px; }
+
+  /* ---------------- Scroll scenes ----------------
+     Static by default. With .motion each .scene becomes tall and its .stage sticks to the
+     viewport while JS sets data-step / --p. Elements opt in with:
+       data-at="n"      shown from step n onward       (.reveal fades; .pop is removed from layout until shown)
+       data-before="n"  shown only before step n
+       data-cur="n"     gets .cur only at step n */
+  .scene { position: relative; }
+  html:not(.motion) .motion-only { display: none; }
+  .stage { padding: var(--space-section) 0; }
+  .motion .scene { height: calc(100vh + var(--steps) * var(--scene-step)); }
+  .motion .stage { position: sticky; top: 0; height: 100vh; padding: 0; display: flex; align-items: center; overflow: hidden; }
+  @supports (height: 100svh) {
+    .motion .scene { height: calc(100svh + var(--steps) * var(--scene-step)); }
+    .motion .stage { height: 100svh; }
+  }
+  .stage > .wrap { width: 100%; }
+
+  .motion .reveal { opacity: 0; transform: translateY(18px); transition: opacity var(--motion-base) var(--motion-ease), transform var(--motion-base) var(--motion-ease); }
+  .motion .reveal.on { opacity: 1; transform: none; }
+  .motion .pop:not(.on), .motion .swap:not(.on) { display: none; }
+  .motion .pop.on { animation: pop var(--motion-base) var(--motion-ease) both; }
+  .motion .swap.on { animation: fade var(--motion-slow) var(--motion-ease) both; }
+  @keyframes pop { from { opacity: 0; transform: translateY(14px) scale(0.98); } to { opacity: 1; transform: none; } }
+  @keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  .progress { display: none; }
+  .motion .progress { display: flex; gap: 6px; margin-top: 18px; }
+  .progress i { width: 22px; height: 3px; border-radius: 2px; background: currentColor; opacity: 0.25; transition: opacity var(--motion-base); }
+  .progress i.on { opacity: 1; }
+
+  /* Scene: the night */
+  .night-grid { display: grid; gap: 28px; }
+  @media (min-width: 900px) { .night-grid { grid-template-columns: 1.1fr 1fr; align-items: center; gap: 64px; } }
+  .clock { font-size: calc(clamp(88px, 28vw, 180px) * var(--display-scale)); line-height: 0.85; color: var(--color-accent-night); font-variant-numeric: tabular-nums; }
+  .clock small { font-size: 0.32em; margin-left: 0.15em; }
+  .night-lines { margin-top: 18px; display: grid; gap: 6px; }
+  .night-lines p { font-size: var(--text-h2); line-height: 0.98; }
+  .night-lines p.muted { color: var(--color-night-muted); }
+  .inbox { background: var(--color-night-surface); border: 1px solid rgba(20, 28, 48, 0.08); border-radius: var(--radius-lg); padding: 14px; max-width: 420px; }
+  .inbox-top { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 600; padding-bottom: 10px; border-bottom: 1px solid var(--color-night-surface-2); margin-bottom: 8px; }
+  .unread { background: var(--color-accent-bright); color: var(--color-text); font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: var(--radius-full); }
+  .inbox ul { list-style: none; padding: 0; display: grid; gap: 2px; }
+  .inbox li { display: grid; grid-template-columns: 36px 1fr auto; gap: 10px; align-items: center; padding: 9px 2px; border-bottom: 1px solid var(--color-night-surface-2); font-size: 15px; }
+  .inbox li:last-child { border-bottom: 0; }
+  .inbox li i { width: 36px; height: 36px; border-radius: 50%; background: var(--color-night-surface-2); display: grid; place-items: center; font: 400 18px/1 var(--font-display); color: var(--color-night-muted); font-style: normal; }
+  .inbox li small { display: block; font-size: 12.5px; color: var(--color-night-muted); }
+  .inbox li time { font-size: 12.5px; color: var(--color-accent-night); font-weight: 600; }
+
+  /* Finding */
+  .finding { padding-top: var(--space-section); padding-bottom: var(--space-section); border-top: 1px solid rgba(20, 28, 48, 0.1); }
+  .finding h2 { font-size: var(--text-h2); line-height: 0.95; max-width: 16ch; margin-top: 10px; }
+  .figure-big { font-size: calc(clamp(120px, 34vw, 220px) * var(--display-scale)); line-height: 0.85; margin-top: 16px; }
+  .figure-big small { font-size: 0.28em; color: var(--color-night-muted); margin-left: 8px; }
+  .finding p.d { color: var(--color-night-muted); margin-top: 12px; max-width: 44ch; }
+  .pill { display: inline-block; margin-top: 16px; padding: 5px 12px; border-radius: var(--radius-full); background: var(--color-accent-bright); color: var(--color-text); font-size: 13px; font-weight: 700; }
+
+  /* Scene: tell it once */
+  .tell-grid { display: grid; gap: 18px; }
+  @media (min-width: 900px) { .tell-grid { grid-template-columns: 1fr 1fr; align-items: center; gap: 64px; } }
+  .tell-time { font-size: calc(clamp(56px, 16vw, 110px) * var(--display-scale)); line-height: 0.88; color: var(--color-accent-night); }
+  .tell-copy h2 { font-size: var(--text-h2); line-height: 0.95; max-width: 15ch; margin-top: 8px; }
+  .tell-copy .tell-desc { color: var(--color-night-muted); margin-top: 10px; max-width: 38ch; }
+  .tell-phone { background: var(--color-night-surface); border: 1px solid rgba(20, 28, 48, 0.08); border-radius: var(--radius-lg); padding: 14px; max-width: 420px; width: 100%; }
+  .motion .tell-phone .chat { height: clamp(220px, 40vh, 460px); justify-content: flex-end; overflow: hidden; }
+  @media (max-width: 899px) { .motion .tell-copy .tell-desc { display: none; } }
+
+  .steps { list-style: none; padding: 0 0 var(--space-section); display: grid; gap: 0; max-width: 980px; }
+  @media (min-width: 900px) { .steps { grid-template-columns: repeat(3, 1fr); gap: 32px; } }
+  .steps li { padding: 16px 0; border-top: 1px solid rgba(20, 28, 48, 0.1); }
+  .steps li span { font: 400 32px/1 var(--font-display); color: var(--color-accent-night); }
+  .steps b { display: block; font-weight: 600; margin-top: 6px; }
+  .steps p { color: var(--color-night-muted); font-size: 15px; }
+
+  /* Scene: the team (night turns to morning) */
+  .s-team .stage { background: var(--color-bg); color: var(--color-text); transition: background var(--motion-slow) var(--motion-ease), color var(--motion-slow) var(--motion-ease); }
+  .motion .s-team[data-step="0"] .stage { background: var(--color-night); color: var(--color-night-text); }
+  .team-intro { text-align: left; }
+  .team-intro .big { font-size: calc(clamp(64px, 20vw, 150px) * var(--display-scale)); line-height: 0.88; }
+  .team-intro .big em { font-style: normal; color: var(--color-accent-text); }
+  .motion .s-team[data-step="0"] .team-intro .big em { color: var(--color-accent-night); }
+  .team-head { margin-top: 40px; }
+  .motion .team-head { margin-top: 0; }
+  .team-head h2 { font-size: var(--text-display-lg); line-height: 0.92; max-width: 13ch; margin-top: 12px; }
+  .team-head p { color: var(--color-text-muted); max-width: 46ch; margin-top: 12px; }
+  .motion .team-head > p { display: none; }
+  .motion .team-head h2 { font-size: var(--text-h2); line-height: 0.95; max-width: 22ch; }
+  @media (min-width: 1000px) { .motion .team-head > p { display: block; } }
+  .team { display: grid; gap: 14px; margin-top: 24px; }
+  @media (min-width: 640px) { .team { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .team { grid-template-columns: repeat(4, 1fr); } }
+  .spec { display: grid; grid-template-rows: auto 1fr; background: var(--color-surface); border: 1px solid var(--color-border); transition: opacity var(--motion-base) var(--motion-ease), transform var(--motion-base) var(--motion-ease); }
+  .spec .art { position: relative; aspect-ratio: 720 / 738; overflow: hidden; }
+  .spec .art img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+  .spec .art .sticker { position: absolute; top: 14px; left: 12px; z-index: 1; }
+  .spec .body { display: grid; gap: 6px; align-content: start; padding: 14px 16px 16px; }
+  .spec h3 { font-size: var(--text-h3); line-height: 0.95; }
+  .spec p { font-size: 15px; color: var(--color-text-muted); }
+  .spec.soon h3 { color: var(--color-text-muted); }
+  .team-note { font-size: 14px; color: var(--color-text-muted); margin-top: 14px; }
+  .team-all { display: none; }
+  /* Motion, phone: one specialist at a time, then the whole team */
+  @media (max-width: 999px) {
+    .motion .team { position: relative; display: block; height: min(48vh, 420px); margin-top: 14px; }
+    .motion .spec { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; transform: translateY(24px) scale(0.97); pointer-events: none; }
+    .motion .spec.cur { opacity: 1; transform: none; pointer-events: auto; }
+    .motion .spec .art { aspect-ratio: auto; flex: 1 1 auto; min-height: 0; }
+    .motion .spec .body { flex: none; }
+    .motion .team-all { display: block; position: absolute; inset: 0; opacity: 0; transition: opacity var(--motion-base); display: grid; align-content: center; }
+    .motion .team-all.on { opacity: 1; }
+  }
+  /* Motion, desktop: specialists join the row one by one */
+  @media (min-width: 1000px) {
+    .motion .spec { opacity: 0; transform: translateY(40px); }
+    .motion .spec.on { opacity: 0.55; transform: none; }
+    .motion .spec.on.cur, .motion .s-team[data-step="5"] .spec { opacity: 1; }
+  }
+  .motion .team-names { display: flex; }
+  .team-names { display: none; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+  .team-names span { font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 9px; border-radius: var(--radius-full); border: 1px solid var(--color-border); color: var(--color-text-muted); transition: background var(--motion-base), color var(--motion-base); }
+  .team-names span.on { background: var(--color-text); color: var(--color-bg); border-color: var(--color-text); }
+  @media (min-width: 1000px) { .motion .team-names { display: none; } }
+
+  /* Morning entries */
+  .ev { display: grid; padding: 40px 0 44px; border-top: 1px solid var(--color-border); }
+  @media (min-width: 760px) { .ev { grid-template-columns: 240px 1fr; gap: 24px; } }
+  .ev time { display: block; font-size: var(--text-display); line-height: 0.9; margin-bottom: 12px; }
+  .ev time small { display: block; font: 700 12px/1.8 var(--font-text); letter-spacing: 0.08em; color: var(--color-text-muted); }
+  .ev h2 { font-size: var(--text-h2); line-height: 0.95; max-width: 16ch; }
+  .ev .d { color: var(--color-text-muted); margin-top: 12px; max-width: 44ch; }
+  .card { position: relative; margin-top: 22px; background: var(--color-surface); border: 1px solid var(--color-border); padding: 16px; max-width: 460px; }
+  .card > .sticker { position: absolute; right: 12px; top: -13px; }
+  .card.needs > .sticker { right: auto; left: 110px; }
+  .needs header { display: flex; justify-content: space-between; align-items: center; font-weight: 600; padding-bottom: 10px; border-bottom: 1px solid var(--color-border); }
+  .needs ul { list-style: none; padding: 0; }
+  .needs li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--color-border); font-size: 15px; }
+  .needs li:last-child { border-bottom: 0; }
+  .needs li small { display: block; color: var(--color-text-muted); font-size: 13px; }
+  .needs .take { flex: none; padding: 7px 12px; border: 1.5px solid var(--color-text); border-radius: var(--radius-full); font-size: 13px; font-weight: 600; }
+  .count { background: var(--color-accent-bright); color: var(--color-text); font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: var(--radius-full); }
+  .line { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--color-border); font-size: 15px; }
+  .line b { font-family: var(--font-display); font-weight: 400; font-size: var(--text-figure); line-height: 1; font-variant-numeric: tabular-nums; }
+  .line.total { background: var(--color-block-butter); border: 0; margin-top: 12px; padding: 14px 12px; font-weight: 600; }
+  .fine { font-size: 13px; color: var(--color-text-muted); margin-top: 10px; max-width: 46ch; }
+
+
+  /* Scene: after the visit */
+  .s-after .stage { transition: background var(--motion-slow) var(--motion-ease); }
+  .story { display: grid; gap: 20px; padding: 40px var(--gutter); margin: 16px calc(-1 * var(--gutter)) 0; background: var(--story); }
+  @media (min-width: 900px) { .story { grid-template-columns: 1fr 1fr; align-items: center; gap: 64px; } }
+  .motion .story { background: none; padding: 0; margin: 16px 0 0; }
+  .motion .s-after[data-step="0"] .stage, .motion .s-after[data-step="1"] .stage, .motion .s-after[data-step="2"] .stage { background: var(--color-block-butter); }
+  .motion .s-after[data-step="3"] .stage, .motion .s-after[data-step="4"] .stage, .motion .s-after[data-step="5"] .stage { background: var(--color-block-blush); }
+  .motion .s-after[data-step="6"] .stage, .motion .s-after[data-step="7"] .stage, .motion .s-after[data-step="8"] .stage { background: var(--color-block-peri-soft); }
+  .story-who { display: flex; align-items: center; gap: 10px; }
+  .story-who img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; object-position: center 22%; border: 2px solid var(--color-surface); }
+  .story-who p { font-size: 14px; font-weight: 600; }
+  .story-who p small { display: block; font-weight: 400; color: #474c60; }
+  .story-who p small::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--color-success); margin-right: 6px; vertical-align: 1px; }
+  .story-time { font-size: calc(clamp(44px, 12vw, 80px) * var(--display-scale)); line-height: 0.9; color: var(--color-accent-text); margin-top: 14px; }
+  .story-copy h2 { font-size: var(--text-h2); line-height: 0.95; max-width: 15ch; margin-top: 8px; }
+  .story-phone { background: var(--color-surface); border: 1px solid rgba(20, 28, 48, 0.08); border-radius: var(--radius-lg); padding: 14px; max-width: 420px; width: 100%; }
+  .motion .story-phone .chat { min-height: clamp(200px, 34vh, 340px); justify-content: flex-end; }
+  .story-note { align-self: stretch; font-size: 13px; font-weight: 600; color: var(--color-text); background: var(--color-block-blush); border-radius: var(--radius-md); padding: 8px 12px; }
+  .story-label { margin-top: 14px; color: #474c60; }
+  @media (max-width: 899px) {
+    .motion .s-after .eyebrow, .motion .story-label, .motion .s-after .progress { display: none; }
+    .motion .story { gap: 12px; margin-top: 0; }
+    .motion .story-who img { width: 40px; height: 40px; }
+    .motion .story-time { font-size: calc(clamp(36px, 10vw, 56px) * var(--display-scale)); margin-top: 8px; }
+    .motion .story-copy h2 { font-size: calc(30px * var(--display-scale)); max-width: 18ch; }
+    .motion .story-phone { padding: 10px 12px; }
+    .motion .story-phone .phone-top { padding-bottom: 6px; margin-bottom: 8px; }
+    .motion .story-phone .chat { min-height: 0; }
+  }
+
+  /* Scene: results */
+  .s-results .stage { transition: background var(--motion-slow) var(--motion-ease); }
+  .result { padding: 48px 0; }
+  .result + .result { border-top: 1px solid rgba(20, 28, 48, 0.12); }
+  .motion .results-set { position: relative; height: min(62vh, 520px); }
+  .motion .result { position: absolute; inset: 0; padding: 0; border: 0; opacity: 0; transform: translateY(30px); transition: opacity var(--motion-base) var(--motion-ease), transform var(--motion-base) var(--motion-ease); display: grid; align-content: center; pointer-events: none; }
+  .motion .result.cur { opacity: 1; transform: none; pointer-events: auto; }
+  .results-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .result-art { display: none; }
+  @media (min-width: 900px) {
+    .result { grid-template-columns: 1.4fr 1fr; column-gap: 48px; align-items: center; }
+    .result { display: grid; }
+    .result-art { display: block; grid-column: 2; grid-row: 1 / span 4; width: 100%; max-width: 380px; justify-self: end; aspect-ratio: 720 / 738; object-fit: cover; }
+    .result > :not(.result-art) { grid-column: 1; }
+  }
+  .result .num { font-size: calc(clamp(96px, 30vw, 230px) * var(--display-scale)); line-height: 0.85; font-variant-numeric: tabular-nums; }
+  .result .what { font-size: var(--text-h2); line-height: 0.98; max-width: 18ch; margin-top: 12px; }
+  .result .how { color: var(--color-text-muted); font-size: 15px; margin-top: 12px; max-width: 46ch; }
+  .who { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+  .who img { flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; object-position: center 22%; border: 2px solid var(--color-surface); }
+  .who img + img { margin-left: -22px; }
+  .who p { font-size: 14px; font-weight: 600; }
+  .who p small { display: block; font-weight: 400; color: var(--color-text-muted); }
+  .s-results .result:nth-child(1) { background: var(--color-block-peri-soft); }
+  .s-results .result:nth-child(2) { background: var(--color-block-butter); }
+  .s-results .result:nth-child(3) { background: var(--color-block-blush); }
+  .s-results .result:nth-child(4) { background: var(--color-block-peri-soft); }
+  .s-results .result { padding-left: var(--gutter); padding-right: var(--gutter); margin: 0 calc(-1 * var(--gutter)); }
+  .motion .s-results .result { background: none; margin: 0; padding: 0; }
+  .motion .s-results[data-step="0"] .stage { background: var(--color-block-peri-soft); }
+  .motion .s-results[data-step="1"] .stage { background: var(--color-block-butter); }
+  .motion .s-results[data-step="2"] .stage { background: var(--color-block-blush); }
+  .motion .s-results[data-step="3"] .stage { background: var(--color-block-peri-soft); }
+  .s-results .how, .s-results .who p small, .s-results .label-sample { color: #474c60; }
+
+  /* Scene: closing statement, words light up */
+  .say p { font-size: calc(clamp(44px, 12vw, 104px) * var(--display-scale)); line-height: 0.95; max-width: 16ch; }
+  .say .w { opacity: 1; transition: opacity 160ms linear; }
+  .motion .say .w { opacity: 0.16; }
+  .motion .say .w.lit { opacity: 1; }
+  .say em { font-style: normal; color: var(--color-accent-text); }
+
+  /* Savings teaser */
+  .savings { background: var(--color-block-peri-soft); padding: var(--space-section) 0; }
+  .savings h2 { font-size: var(--text-display-lg); line-height: 0.92; max-width: 13ch; margin-top: 16px; }
+  .savings p { color: var(--color-text-muted); max-width: 44ch; margin: 16px 0 22px; }
+  .qs { list-style: none; padding: 0; display: grid; gap: 8px; max-width: 460px; margin-bottom: 24px; }
+  .qs li { display: flex; justify-content: space-between; gap: 12px; background: var(--color-surface); padding: 12px 14px; font-size: 15px; }
+  .qs li span { color: var(--color-text-muted); white-space: nowrap; }
+
+  /* Pricing + data */
+  .plain { display: grid; gap: 28px; padding: var(--space-section) 0; }
+  @media (min-width: 760px) { .plain { grid-template-columns: 1fr 1fr; gap: 48px; } }
+  .plain h2 { font-size: var(--text-h2); line-height: 0.95; margin-bottom: 10px; }
+  .plain p { color: var(--color-text-muted); max-width: 42ch; }
+  .plain p b { color: var(--color-text); }
+  .plain a { color: var(--color-accent-text); font-weight: 600; }
+
+  /* Final CTA */
+  .end { padding: 0 0 var(--space-section); }
+  .team-img { width: 100%; margin-bottom: 32px; }
+  .end h2 { font-size: var(--text-display-lg); line-height: 0.92; max-width: 12ch; }
+  .end .founder { color: var(--color-text-muted); margin: 20px 0 24px; max-width: 420px; }
+  .end .founder b { color: var(--color-text); }
+  .end .avatar { width: 72px; height: 72px; font-size: 36px; }
+
+  footer { border-top: 1px solid var(--color-border); padding: 24px 0 40px; font-size: 14px; color: var(--color-text-muted); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+  footer a { text-decoration: underline; text-underline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<!-- Scroll guidance (motion only): page progress, chapter rail, scroll cue -->
+<div class="page-progress" aria-hidden="true"><i></i></div>
+<nav class="chapters" aria-hidden="true">
+  <a data-ch="0">The night</a><a data-ch="1">Tell it once</a><a data-ch="2">The team</a><a data-ch="3">After the visit</a><a data-ch="4">Results</a>
+</nav>
+<div class="scroll-cue" aria-hidden="true">
+  <span class="ring"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.5" class="track"/><circle cx="18" cy="18" r="15.5" class="fill"/></svg><i class="chev"></i></span>
+  <span class="cue-text">Scroll to see one night</span>
+</div>
+
+<!-- ============ HERO ============ -->
+<div class="night">
+  <div class="wrap">
+    <nav class="nav" aria-label="Main">
+      <a class="wordmark D" href="/" aria-label="Cyvo home">cyvo<span>.</span></a>
+      <a class="nav-btn" data-wa="hero" href="https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%27d%20like%20a%20demo%20for%20my%20clinic">Message us</a>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-head">
+        <span class="sticker s-tomato">Open at 11 pm</span>
+        <h1 class="D">Your clinic answers WhatsApp at 11 pm. <em>Even when you don’t.</em></h1>
+      </div>
+      <div class="hero-copy">
+        <p class="sub">A team of front desk specialists on your clinic’s own WhatsApp number, set up in person in Mumbai.</p>
+        <a class="btn" data-wa="hero" href="https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%27d%20like%20a%20demo%20for%20my%20clinic">Message us on WhatsApp</a>
+        <div class="founder">
+          <!-- Founder photo: replace the S with <img src="images/shehbaz.webp" alt="Shehbaz" width="96" height="96"> -->
+          <div class="avatar" aria-hidden="true">S</div>
+          <p><b>Shehbaz</b> comes to your clinic for a 5-minute demo.</p>
+        </div>
+      </div>
+      <div class="hero-team" aria-label="Your front desk team">
+        <div class="tiles">
+          <figure class="tile" style="--tile:var(--color-block-peri)">
+            <img src="images/th-front-desk.webp" width="400" height="410" alt="Illustration: the front desk specialist" decoding="async" fetchpriority="high">
+            <span class="sticker s-butter">Live</span>
+            <figcaption class="D">Front desk</figcaption>
+            <p class="note-pop" data-hero="1"><small>10:41 pm</small>Booked: Sat, 12:30 pm</p>
+          </figure>
+          <figure class="tile" style="--tile:var(--color-block-butter)">
+            <img src="images/th-reminder.webp" width="400" height="410" alt="Illustration: the reminder specialist" decoding="async">
+            <span class="sticker s-peri">Live</span>
+            <figcaption class="D">Reminders</figcaption>
+            <p class="note-pop" data-hero="2"><small>7:00 pm</small>12 reminders sent</p>
+          </figure>
+          <figure class="tile" style="--tile:var(--color-block-blush)">
+            <img src="images/th-reviews.webp" width="400" height="410" alt="Illustration: the reviews specialist" decoding="async">
+            <span class="sticker s-butter">Live</span>
+            <figcaption class="D">Reviews</figcaption>
+            <p class="note-pop" data-hero="3"><small>1:15 pm</small>Review request sent</p>
+          </figure>
+          <figure class="tile" style="--tile:var(--color-block-peri-soft)">
+            <img src="images/th-recall.webp" width="400" height="410" alt="Illustration: the recall specialist" decoding="async">
+            <span class="sticker s-blush">Live</span>
+            <figcaption class="D">Recall</figcaption>
+            <p class="note-pop" data-hero="4"><small>6 months later</small>Follow-up booked</p>
+          </figure>
+        </div>
+        <p class="caption">Your front desk team, all live. Sample notifications.</p>
+      </div>
+    </header>
+    <p class="scroll-hint">One night at a sample clinic <span class="hint-arrow">↓</span></p>
+  </div>
+
+  <!-- ============ SCENE 1: THE NIGHT ============ -->
+  <section class="scene s-night" data-chapter="0" style="--steps:5" data-steps="5" aria-label="The night: messages arrive after the receptionist goes home">
+    <div class="stage">
+      <div class="wrap night-grid">
+        <div>
+          <p class="clock D" data-clock aria-hidden="true">11:04<small>pm</small></p>
+          <div class="night-lines">
+            <p class="D swap on" data-before="2">Your receptionist goes home at 8.</p>
+            <p class="D swap" data-at="2" data-before="4">Patients keep messaging.</p>
+            <p class="D swap" data-at="4">Without a front desk, they wait until morning.</p>
+          </div>
+        </div>
+        <div class="inbox" aria-label="Sample inbox of unanswered patient messages">
+          <div class="inbox-top">Sample clinic · WhatsApp <span class="unread" data-unread>4 unread</span></div>
+          <ul>
+            <li class="pop" data-at="1"><i>P</i><p>Is the clinic open on Sunday?<small>Patient</small></p><time>8:47 pm</time></li>
+            <li class="pop" data-at="2"><i>A</i><p>Can I book for tomorrow morning?<small>Patient</small></p><time>9:30 pm</time></li>
+            <li class="pop" data-at="3"><i>R</i><p>What is the consultation fee?<small>Patient</small></p><time>10:15 pm</time></li>
+            <li class="pop" data-at="4"><i>S</i><p>Hi, appointment please<small>Patient</small></p><time>10:41 pm</time></li>
+          </ul>
+          <p class="label-sample" style="margin-top:10px">Invented patients.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINDING (publish only real results from the 18 and 25 Oct tests) ============ -->
+  <section class="wrap finding" aria-labelledby="finding-title">
+    <p class="eyebrow reveal" data-view>After 10 pm · our test</p>
+    <h2 class="D reveal" data-view id="finding-title">We messaged Mumbai clinics at this hour.</h2>
+    <!-- Replace ? with the median hours and add the number of clinics once the data exists -->
+    <p class="figure-big D reveal" data-view>?<small>hours</small></p>
+    <p class="d">Median first reply when we messaged Mumbai clinics after 10 pm. No clinic is named.</p>
+    <span class="pill">Results from our 18 and 25 Oct tests</span>
+  </section>
+
+  <!-- ============ SCENE 2: TELL IT ONCE ============ -->
+  <section class="scene s-tell" data-chapter="1" style="--steps:9" data-steps="9" aria-label="Tell it once: the doctor gives one instruction and every booking follows it">
+    <div class="stage">
+      <div class="wrap tell-grid">
+        <div class="tell-copy">
+          <p class="tell-time D swap on" data-before="5">9:12 pm</p>
+          <p class="tell-time D swap motion-only" data-at="5">10:41 pm</p>
+          <h2 class="D swap on" data-before="5">You tell the team once.</h2>
+          <h2 class="D swap motion-only" data-at="5">A patient asks. The team already knows.</h2>
+          <p class="tell-desc swap on" data-before="5">Type it the way you’d tell your receptionist. Hindi, English, or both.</p>
+          <p class="tell-desc swap motion-only" data-at="5">Every specialist follows your instruction, at any hour.</p>
+          <div class="progress" aria-hidden="true"><i data-at="1"></i><i data-at="3"></i><i data-at="5"></i><i data-at="7"></i></div>
+        </div>
+        <div class="tell-phone">
+          <div class="phone-top" aria-hidden="true">Sample clinic <span class="D">Cyvo</span></div>
+          <div class="chat" aria-label="Sample chat">
+            <p class="msg right doc pop" data-at="1"><small>You</small><span lang="hi-Latn">Kal clinic band hai</span><span class="tr">Clinic is closed tomorrow</span></p>
+            <p class="msg left cyvo pop" data-at="2"><small>Cyvo</small>Noted. 3 patients are booked tomorrow. Shall I move them to Saturday and let them know?</p>
+            <p class="msg right doc pop" data-at="3"><small>You</small><span lang="hi-Latn">Haan, Saturday ko shift karo</span><span class="tr">Yes, move them to Saturday</span></p>
+            <p class="msg left cyvo pop" data-at="4"><small>Cyvo</small>Done. All 3 moved and informed. Every specialist will follow this.</p>
+            <p class="chat-divider pop" data-at="5">10:41 pm · a patient writes in</p>
+            <p class="msg left patient pop" data-at="6"><small>Patient</small>Hi, can I get an appointment tomorrow?</p>
+            <p class="msg right reply pop" data-at="7"><small>Front desk specialist</small>We’re closed tomorrow. The next open day is Saturday. Which time suits you?
+              <span class="slots"><span>11:00 am</span><span class="on">12:30 pm</span><span>5:00 pm</span></span></p>
+            <p class="msg right reply pop" data-at="8"><small>Front desk specialist</small>Booked: Saturday, 12:30 pm.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <ol class="steps" aria-label="How it works">
+      <li class="reveal" data-view><span>01</span><b>We set it up at your clinic.</b><p>In person, in Mumbai, on your existing number.</p></li>
+      <li class="reveal" data-view><span>02</span><b>The team answers and books your patients.</b><p>Day and night, in your clinic’s name.</p></li>
+      <li class="reveal" data-view><span>03</span><b>You instruct them on WhatsApp.</b><p>Leave, holidays, new timings. Tell it once. It remembers.</p></li>
+    </ol>
+  </div>
+</div>
+
+<main>
+  <!-- ============ SCENE 3: THE TEAM (night turns to morning) ============ -->
+  <section class="scene s-team" data-chapter="2" style="--steps:6" data-steps="6" aria-labelledby="team-title">
+    <div class="stage">
+      <div class="wrap">
+        <div class="team-intro swap on" data-before="1">
+          <p class="big D">Not one chatbot.<br><em>A team.</em></p>
+        </div>
+        <div class="team-head swap on" data-at="1">
+          <span class="sticker s-tomato">Morning · meet the team</span>
+          <h2 class="D" id="team-title">A team of specialists. Each does one job.</h2>
+          <p>One bot trying to do everything gets things wrong. Cyvo gives your clinic a team of specialists, each trained for a single front desk job, all working on your number and following your instructions.</p>
+          <div class="team-names" aria-hidden="true">
+            <span data-at="1">Front desk</span><span data-at="2">Reminders</span><span data-at="3">Reviews</span><span data-at="4">Recall</span>
+          </div>
+          <div class="team">
+            <article class="spec" data-at="1" data-cur="1">
+              <div class="art"><span class="sticker s-butter">Live</span>
+                <img src="images/front-desk.webp" width="720" height="738" alt="Illustration: the front desk specialist, wearing a headset and holding a phone with a booked slot" loading="lazy" decoding="async"></div>
+              <div class="body"><h3 class="D">Front desk specialist</h3><p>Answers and books your patients, day and night.</p></div>
+            </article>
+            <article class="spec" data-at="2" data-cur="2">
+              <div class="art"><span class="sticker s-peri">Live</span>
+                <img src="images/reminder.webp" width="720" height="738" alt="Illustration: the reminder specialist, holding an appointment card and a desk bell" loading="lazy" decoding="async"></div>
+              <div class="body"><h3 class="D">Reminder specialist</h3><p>Reminds and confirms every patient the day before.</p></div>
+            </article>
+            <article class="spec" data-at="3" data-cur="3">
+              <div class="art"><span class="sticker s-butter">Live</span>
+                <img src="images/reviews.webp" width="720" height="738" alt="Illustration: the reviews specialist, holding a card with one star" loading="lazy" decoding="async"></div>
+              <div class="body"><h3 class="D">Reviews specialist</h3><p>Asks every patient for a Google review after their visit.</p></div>
+            </article>
+            <article class="spec" data-at="4" data-cur="4">
+              <div class="art"><span class="sticker s-blush">Live</span>
+                <img src="images/recall.webp" width="720" height="738" alt="Illustration: the recall specialist, holding a calendar page with one date circled" loading="lazy" decoding="async"></div>
+              <div class="body"><h3 class="D">Recall specialist</h3><p>Brings back patients who are due for a follow-up.</p></div>
+            </article>
+            <div class="team-all" data-at="5" aria-hidden="true">
+              <img src="images/team-720.webp" width="720" height="402" alt="" loading="lazy" decoding="async">
+            </div>
+          </div>
+          <p class="team-note">Patients never see these titles. They just see your clinic.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MORNING ============ -->
+  <div class="wrap">
+    <article class="ev">
+      <time class="D">9:00<small>AM · FRIDAY</small></time>
+      <div><h2 class="D">Your receptionist starts with a short list.</h2>
+        <p class="d">Everything routine is done. What needs a person is waiting for her, with a take-over button. Cyvo gives your receptionist a team. She handles the people.</p>
+        <div class="card needs reveal" data-view role="img" aria-label="Sample needs-you list with two patient requests waiting for the receptionist">
+          <span class="sticker s-peri alt">Sample</span>
+          <header>Needs you <span class="count">2</span></header>
+          <ul>
+            <li><p>Asks about treatment cost<small>Patient · 10:52 pm</small></p><span class="take">Take over</span></li>
+            <li><p>Wants to speak to the doctor<small>Patient · 7:40 am</small></p><span class="take">Take over</span></li>
+          </ul>
+        </div>
+        <p class="fine">Overnight: 3 booked, 4 questions answered.</p>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ============ SCENE: AFTER THE VISIT (Reminder, Reviews, Recall) ============ -->
+  <section class="scene s-after" style="--steps:9" data-steps="9" data-chapter="3" aria-labelledby="after-title">
+    <div class="stage">
+      <div class="wrap">
+        <p class="eyebrow" id="after-title">After the visit · one patient, three specialists</p>
+
+        <div class="story swap on" data-before="3" style="--story:var(--color-block-butter)">
+          <div class="story-copy">
+            <div class="story-who"><img src="images/th-reminder.webp" width="400" height="410" alt="" loading="lazy" decoding="async"><p>Reminder specialist<small>Live</small></p></div>
+            <p class="story-time D">Fri · 7:00 pm</p>
+            <h2 class="D">The night before, every patient gets a reminder.</h2>
+          </div>
+          <div class="story-phone">
+            <div class="phone-top" aria-hidden="true">Sample clinic <span class="D">Priya</span></div>
+            <div class="chat" aria-label="Sample reminder conversation">
+              <p class="msg right reply"><small>Reminder specialist</small>Hi Priya, a reminder from Sample Clinic: your appointment is tomorrow, Saturday, at 12:30 pm. Reply 1 to confirm or 2 to change the time.</p>
+              <p class="msg left patient pop" data-at="1"><small>Priya</small>1</p>
+              <p class="msg right reply pop" data-at="2"><small>Reminder specialist</small>Confirmed. See you tomorrow at 12:30 pm.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="story swap" data-at="3" data-before="6" style="--story:var(--color-block-blush)">
+          <div class="story-copy">
+            <div class="story-who"><img src="images/th-reviews.webp" width="400" height="410" alt="" loading="lazy" decoding="async"><p>Reviews specialist<small>Live</small></p></div>
+            <p class="story-time D">Sat · 1:15 pm</p>
+            <h2 class="D">After the visit, every patient is asked for a review.</h2>
+          </div>
+          <div class="story-phone">
+            <div class="phone-top" aria-hidden="true">Sample clinic <span class="D">Priya</span></div>
+            <div class="chat" aria-label="Sample review request conversation">
+              <p class="msg right reply"><small>Reviews specialist</small>Thank you for visiting Sample Clinic today, Priya. If you have a minute, please share your experience on Google. It helps other patients find us.
+                <span class="slots"><span class="on">Write a review on Google</span></span></p>
+              <p class="msg left patient pop" data-at="4"><small>Priya</small>Done. Thank you!</p>
+              <p class="story-note pop" data-at="5">Every patient is asked, not only the happy ones. No incentives, ever.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="story swap" data-at="6" style="--story:var(--color-block-peri-soft)">
+          <div class="story-copy">
+            <div class="story-who"><img src="images/th-recall.webp" width="400" height="410" alt="" loading="lazy" decoding="async"><p>Recall specialist<small>Live</small></p></div>
+            <p class="story-time D">Six months later</p>
+            <h2 class="D">When a follow-up is due, the patient comes back.</h2>
+          </div>
+          <div class="story-phone">
+            <div class="phone-top" aria-hidden="true">Sample clinic <span class="D">Priya</span></div>
+            <div class="chat" aria-label="Sample follow-up conversation">
+              <p class="msg right reply"><small>Recall specialist</small>Hi Priya, it’s been six months since your last visit to Sample Clinic and your follow-up is due. Would next week work?
+                <span class="slots"><span>Tue 11:00 am</span><span>Thu 5:00 pm</span></span></p>
+              <p class="msg left patient pop" data-at="7"><small>Priya</small>Thursday 5 pm</p>
+              <p class="msg right reply pop" data-at="8"><small>Recall specialist</small>Booked: Thursday, 5:00 pm. We’ll remind you the day before.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="label-sample story-label">Sample clinic. Invented patient.</p>
+        <div class="progress" aria-hidden="true"><i data-at="0"></i><i data-at="3"></i><i data-at="6"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <article class="ev">
+      <time class="D">Sun<small>9:00 AM</small></time>
+      <div><h2 class="D">Your report card arrives on WhatsApp.</h2>
+        <div class="card reveal" data-view aria-label="Sample weekly report card">
+          <span class="sticker s-peri">Sample</span>
+          <p class="line" style="border:0;padding-top:0"><span><b style="font:600 15px var(--font-text)">Sample clinic</b> · this week</span></p>
+          <p class="line"><span>Appointments booked</span><b data-count="46">46</b></p>
+          <p class="line"><span>Of them after hours</span><b data-count="17">17</b></p>
+          <p class="line"><span>No-shows avoided after a reminder</span><b data-count="6">6</b></p>
+          <p class="line"><span>Review requests sent</span><b data-count="38">38</b></p>
+          <p class="line"><span>Patients back for a follow-up</span><b data-count="8">8</b></p>
+          <p class="line total"><span>Estimated value of after-hours bookings</span><b data-count="13600" data-prefix="₹">₹13,600</b></p>
+        </div>
+        <p class="fine">Invented clinic and figures, at ₹800 a visit. The rupee figure is an estimate.</p>
+      </div>
+    </article>
+  </div>
+
+  <!-- ============ SCENE 4: RESULTS ============
+       ILLUSTRATIVE figures for an invented sample clinic. Replace with real data when available.
+       Keep the "Sample clinic · illustrative" label on every figure until then (ASCI / Reamde.md). -->
+  <section class="scene s-results" data-chapter="4" style="--steps:4" data-steps="4" aria-labelledby="results-title">
+    <div class="stage">
+      <div class="wrap">
+        <div class="results-head">
+          <p class="eyebrow" id="results-title">What a month could look like</p>
+          <p class="label-sample">Sample clinic · illustrative estimates, not results</p>
+        </div>
+        <div class="results-set">
+          <div class="result" data-cur="0">
+            <img class="result-art" src="images/front-desk.webp" width="720" height="738" alt="" loading="lazy" decoding="async">
+            <p class="num D" data-count="73600" data-prefix="₹">₹73,600</p>
+            <p class="what D">More revenue a month</p>
+            <p class="how">68 after-hours bookings and 24 no-shows avoided, at ₹800 a visit.</p>
+            <div class="who"><img src="images/front-desk.webp" alt="" width="720" height="738" loading="lazy"><img src="images/reminder.webp" alt="" width="720" height="738" loading="lazy">
+              <p>Front desk + Reminder specialists<small>Live</small></p></div>
+          </div>
+          <div class="result" data-cur="1">
+            <img class="result-art" src="images/reminder.webp" width="720" height="738" alt="" loading="lazy" decoding="async">
+            <p class="num D" data-count="11" data-suffix=" hrs">11 hrs</p>
+            <p class="what D">Of your receptionist’s time back, every week</p>
+            <p class="how">About 220 routine replies she no longer types, at 3 minutes each.</p>
+            <div class="who"><img src="images/front-desk.webp" alt="" width="720" height="738" loading="lazy"><img src="images/reminder.webp" alt="" width="720" height="738" loading="lazy">
+              <p>The whole team<small>Live</small></p></div>
+          </div>
+          <div class="result" data-cur="2">
+            <img class="result-art" src="images/reviews.webp" width="720" height="738" alt="" loading="lazy" decoding="async">
+            <p class="num D" data-count="30" data-prefix="+">+30</p>
+            <p class="what D">More Google reviews a month</p>
+            <p class="how">From asking every patient after their visit.</p>
+            <div class="who"><img src="images/reviews.webp" alt="" width="720" height="738" loading="lazy">
+              <p>Reviews specialist<small>Live</small></p></div>
+          </div>
+          <div class="result" data-cur="3">
+            <img class="result-art" src="images/recall.webp" width="720" height="738" alt="" loading="lazy" decoding="async">
+            <p class="num D" data-count="34">34</p>
+            <p class="what D">Patients back for their follow-up, every month</p>
+            <p class="how">Reminded at the right time, so recalls don’t slip.</p>
+            <div class="who"><img src="images/recall.webp" alt="" width="720" height="738" loading="lazy">
+              <p>Recall specialist<small>Live</small></p></div>
+          </div>
+        </div>
+        <div class="progress" aria-hidden="true"><i data-at="0"></i><i data-at="1"></i><i data-at="2"></i><i data-at="3"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 5: CLOSING STATEMENT ============ -->
+  <section class="scene say" style="--steps:3" data-steps="3" data-words aria-label="Your receptionist handles the people. The team handles everything else.">
+    <div class="stage">
+      <div class="wrap">
+        <p class="D" aria-hidden="true">Your receptionist handles the people. <em>The team handles everything else.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SAVINGS CHECK (links to savings.html, not built yet: hide until it exists) ============ -->
+  <section class="savings" aria-labelledby="savings-title">
+    <div class="wrap">
+      <span class="sticker s-butter">2 minutes</span>
+      <h2 class="D" id="savings-title">What is your front desk missing?</h2>
+      <p>Answer five questions about your clinic. Get a free front desk audit with an estimate, in rupees, of what after-hours replies, reminders and follow-ups could be worth to you.</p>
+      <ul class="qs">
+        <li>Patients who message in a day <span>e.g. 25</span></li>
+        <li>Your clinic timings <span>e.g. 10 am – 8 pm</span></li>
+        <li>Patients you see in a day <span>e.g. 20</span></li>
+        <li>Follow-ups due each month <span>e.g. 40</span></li>
+        <li>Average visit fee <span>e.g. ₹800</span></li>
+      </ul>
+      <a class="btn" href="savings.html">Check my clinic</a>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="plain">
+      <section aria-labelledby="price-title">
+        <h2 class="D" id="price-title">Pricing</h2>
+        <!-- When pricing is decided: Setup ₹{{setup}} · Monthly ₹{{monthly}} -->
+        <p><b>One-time setup fee plus a monthly fee.</b> Cancel with one message. No lock-in.</p>
+      </section>
+      <section aria-labelledby="data-title">
+        <h2 class="D" id="data-title">Your patients’ data</h2>
+        <p>Patient phone numbers are encrypted. We never store diagnoses, prescriptions or medical records. <a href="data.html">How we handle data →</a></p>
+      </section>
+    </div>
+
+    <section class="end" aria-labelledby="end-title">
+      <img class="team-img reveal" data-view src="images/team-720.webp" srcset="images/team-720.webp 720w, images/team-1200.webp 1200w" sizes="(min-width: 1080px) 1040px, 100vw" width="1200" height="670" alt="Illustration: the four front desk specialists standing together, each on their own colour tile" loading="lazy" decoding="async">
+      <h2 class="D" id="end-title">See the team on your own number.</h2>
+      <div class="founder">
+        <div class="avatar" aria-hidden="true">S</div>
+        <p><b>Shehbaz, Mumbai.</b> I come to your clinic for a 5-minute demo and set everything up in person.</p>
+      </div>
+      <a class="btn" data-wa="end" href="https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%27d%20like%20a%20demo%20for%20my%20clinic%20%28end%29">Message us on WhatsApp</a>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Cyvo · Mumbai</span>
+    <a href="data.html">How we handle data</a>
+    <a href="https://instagram.com/cyvowork" rel="noopener">Instagram</a>
+  </div>
+</footer>
+
+<script>
+  // WhatsApp links from CONFIG, so the number and messages live in one place.
+  (function () {
+    var c = window.CYVO, msg = { hero: c.messageHero, end: c.messageEnd };
+    document.querySelectorAll('[data-wa]').forEach(function (a) {
+      a.href = 'https://wa.me/' + c.whatsappNumber + '?text=' + encodeURIComponent(msg[a.dataset.wa] || c.messageHero);
+    });
+  })();
+
+  // Scroll story. Only transforms/opacity change; everything reverses on scroll up.
+  (function () {
+    var root = document.documentElement;
+    if (!root.classList.contains('motion')) return;
+
+    var fmt = function (n) { return n.toLocaleString('en-IN'); };
+
+    function countUp(el) {
+      var to = +el.dataset.count, pre = el.dataset.prefix || '', suf = el.dataset.suffix || '', t0 = null;
+      function frame(t) {
+        if (!t0) t0 = t;
+        var k = Math.min(1, (t - t0) / 900), e = 1 - Math.pow(1 - k, 3);
+        el.textContent = pre + fmt(Math.round(to * e)) + suf;
+        if (k < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+      // Safety net: always land on the final value even if frames are throttled.
+      setTimeout(function () { el.textContent = pre + fmt(to) + suf; }, 1000);
+    }
+
+    // Hero: tiles rise in (CSS), then the live specialists' notifications pop up.
+    document.querySelectorAll('[data-hero]').forEach(function (n) {
+      setTimeout(function () { n.classList.add('on'); }, 600 + (+n.dataset.hero) * 700);
+    });
+
+    // Closing statement: split into words.
+    document.querySelectorAll('[data-words] p').forEach(function (p) {
+      (function wrap(node) {
+        Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+          if (n.nodeType === 3) {
+            var frag = document.createDocumentFragment();
+            n.textContent.split(/(\s+)/).forEach(function (w) {
+              if (!w) return;
+              if (/^\s+$/.test(w)) { frag.appendChild(document.createTextNode(w)); return; }
+              var s = document.createElement('span'); s.className = 'w'; s.textContent = w; frag.appendChild(s);
+            });
+            node.replaceChild(frag, n);
+          } else wrap(n);
+        });
+      })(p);
+    });
+
+    var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene'));
+    var state = new Map();
+
+    function apply(scene, step, p) {
+      if (state.get(scene) === step && !scene.hasAttribute('data-words') && !scene.querySelector('[data-clock]')) return;
+      var changed = state.get(scene) !== step;
+      state.set(scene, step);
+      scene.dataset.step = step;
+
+      if (changed) {
+        scene.querySelectorAll('[data-at],[data-before]').forEach(function (el) {
+          var at = el.dataset.at, before = el.dataset.before;
+          var on = (at === undefined || step >= +at) && (before === undefined || step < +before);
+          el.classList.toggle('on', on);
+        });
+        scene.querySelectorAll('[data-cur]').forEach(function (el) {
+          var cur = step === +el.dataset.cur;
+          if (cur && !el.classList.contains('cur')) el.querySelectorAll('[data-count]').forEach(countUp);
+          el.classList.toggle('cur', cur);
+        });
+        var unread = scene.querySelector('[data-unread]');
+        if (unread) unread.textContent = scene.querySelectorAll('.inbox li.on').length + ' unread';
+      }
+
+      var clock = scene.querySelector('[data-clock]');
+      if (clock) {
+        var mins = 20 * 60 + Math.round(p * 184), h = Math.floor(mins / 60) - 12, m = mins % 60;
+        clock.innerHTML = h + ':' + (m < 10 ? '0' : '') + m + '<small>pm</small>';
+      }
+
+      if (scene.hasAttribute('data-words')) {
+        var words = scene.querySelectorAll('.w'), lit = Math.round(Math.min(1, p * 1.25) * words.length);
+        words.forEach(function (w, i) { w.classList.toggle('lit', i < lit); });
+      }
+    }
+
+    var cue = document.querySelector('.scroll-cue'), cueText = cue.querySelector('.cue-text');
+    var rail = document.querySelector('.chapters'), chapterLinks = rail.querySelectorAll('[data-ch]');
+    var bar = document.querySelector('.page-progress');
+    function guide(vh) {
+      var docH = document.documentElement.scrollHeight - vh;
+      bar.style.setProperty('--page', docH > 0 ? Math.min(1, scrollY / docH) : 0);
+      var active = null, activeP = 0, lastDone = -1;
+      scenes.forEach(function (sc) {
+        if (sc.dataset.chapter === undefined) return;
+        var r = sc.getBoundingClientRect(), total = sc.offsetHeight - vh;
+        if (r.top <= 1 && r.bottom >= vh - 1) { active = sc; activeP = total > 0 ? Math.min(1, -r.top / total) : 1; }
+        if (r.bottom < vh) lastDone = Math.max(lastDone, +sc.dataset.chapter);
+      });
+      var inHero = scrollY < vh * 0.6;
+      cue.classList.toggle('show', inHero || !!active);
+      cue.classList.toggle('hero', inHero && !active);
+      cue.classList.toggle('done', !!active && activeP > 0.96);
+      cue.style.setProperty('--scene', active ? activeP : 0);
+      cueText.textContent = inHero ? 'Scroll to see one night' : (activeP > 0.96 ? 'Next' : 'Keep scrolling');
+      rail.classList.toggle('show', !!active);
+      chapterLinks.forEach(function (a) {
+        var ch = +a.dataset.ch;
+        a.classList.toggle('on', !!active && ch === +active.dataset.chapter);
+        a.classList.toggle('done', ch <= lastDone);
+      });
+    }
+
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var vh = window.innerHeight;
+      guide(vh);
+      scenes.forEach(function (scene) {
+        var r = scene.getBoundingClientRect();
+        if (r.bottom < -vh || r.top > vh) return;
+        var total = scene.offsetHeight - vh;
+        var p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 1;
+        var n = +scene.dataset.steps;
+        apply(scene, Math.min(n - 1, Math.floor(p * n)), p);
+      });
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+
+    // One-time reveals for non-pinned content.
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('on');
+        e.target.querySelectorAll('[data-count]').forEach(countUp);
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    document.querySelectorAll('[data-view]').forEach(function (el) { io.observe(el); });
+  })();
+</script>
+</body>
+</html>
