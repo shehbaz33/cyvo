@@ -1,19 +1,42 @@
-import { AnimatePresence, motion } from 'motion/react';
-import { MESSAGES, SOURCES, SOURCE_ORDER, TEAM, waLink, type SourceId } from '../data/content';
+import { AnimatePresence, motion, useTransform } from 'motion/react';
+import { MESSAGES, SECTION_BG, TEAM, WHATSAPP_DISPLAY, waLink, type SourceId } from '../data/content';
 import { Scene, useScene } from '../components/Scene';
-import { Counter, SourceTag, Swap, ease, spring } from '../components/ui';
+import { Backdrop, Counter, SourceTag, Swap, ease, spring } from '../components/ui';
 
-/* Sample-clinic arithmetic built on the research (STORY-SCRIPT.md Act 5). Estimates, not results. */
-type Stat = { leak: string; bg: string; to: number; prefix?: string; suffix?: string; what: string; how: string; src: SourceId[]; specs: number[] };
+/* Sample-clinic arithmetic built on the research (STORY-SCRIPT.md Act 5). Estimates, not results.
+   Biggest number first: the monthly total, then each gap from largest to smallest. */
+/* sure: the same "How sure" labels as the Clinic Vitals report, so every rupee says where it comes from. */
+type Sure = 'Backed by research' | 'Research + our estimate' | 'Our estimate';
+type Stat = { leak: string; bg: string; art: string; to: number; prefix?: string; suffix?: string; what: string; how: string; src: SourceId[]; specs: number[]; sure?: Sure };
 const STATS: Stat[] = [
-  { leak: 'Missed enquiries', bg: '#e8e9fc', to: 22500, prefix: '₹', what: 'From new patients who would have gone elsewhere', how: '300 after-hours messages a month. If 1 in 5 is a new patient wanting to book, and a reply within minutes keeps 1 in 4 of them: 15 new patients × ₹1,500.', src: ['R1', 'R2'], specs: [0] },
-  { leak: 'No-shows', bg: '#fbf0c9', to: 63000, prefix: '₹', what: 'From patients who actually turn up', how: '520 booked visits a month, 1 in 5 missed. Reminders lift attendance about 10% (from 80% to 88%), and a second reminder helps more: about 42 more visits × ₹1,500.', src: ['R4', 'R5'], specs: [1] },
-  { leak: 'Reviews', bg: '#fbe4ea', to: 50, suffix: '+', what: 'New Google reviews every month', how: 'All 520 patients asked after their visit. Even if only 1 in 10 posts a review (surveys say up to 2 in 3 will when asked). Google says more reviews can help your local ranking.', src: ['R7', 'R8'], specs: [2] },
-  { leak: 'Follow-ups', bg: '#eef0fd', to: 18000, prefix: '₹', what: 'From patients brought back for their check-up', how: '150 patients due for a check-up each month × about 8 in 100 more coming back when reminded = 12 visits × ₹1,500.', src: ['R11'], specs: [3] },
-  { leak: 'Your receptionist', bg: '#fbf6f4', to: 50, suffix: ' hrs', what: 'Of your receptionist’s time back every month', how: '750 WhatsApp messages at about 3 minutes each, plus 520 reminder calls at about 2 minutes each. Assumption.', src: [], specs: [0, 1, 2, 3] },
-  { leak: 'All together', bg: '#fbf6f4', to: 103500, prefix: '₹', what: 'A month. About ₹12 lakh a year.', how: '₹22,500 from missed enquiries + ₹63,000 from fewer no-shows + ₹18,000 from follow-ups. Plus 50+ new reviews and 50 hours of your receptionist’s time.', src: [], specs: [0, 1, 2, 3] },
+  { leak: 'All together', bg: SECTION_BG.impact, art: '/images/team-720.webp', to: 103500, prefix: '₹', what: 'A month. About ₹12 lakh a year.', how: '₹63,000 from fewer no-shows + ₹22,500 from missed enquiries + ₹18,000 from follow-ups. Plus 50+ new reviews and 50 hours of your receptionist’s time. Here is how each one adds up.', src: [], specs: [0, 1, 2, 3], sure: 'Research + our estimate' },
+  { leak: 'No-shows', bg: '#fbf0c9', art: '/images/reminder.webp', to: 63000, prefix: '₹', what: 'From patients who actually turn up', how: '520 booked visits a month, 1 in 5 missed. Reminders lift attendance about 10% (from 80% to 88%), and a second reminder helps more: about 42 more visits × ₹1,500.', src: ['R4', 'R5'], specs: [1], sure: 'Backed by research' },
+  { leak: 'Missed enquiries', bg: '#e8e9fc', art: '/images/front-desk.webp', to: 22500, prefix: '₹', what: 'From new patients who would have gone elsewhere', how: '300 after-hours messages a month. If 1 in 5 is a new patient wanting to book, and a reply within minutes keeps 1 in 4 of them (both our estimates): 15 new patients × ₹1,500. US studies show many bookings happen after hours and fast replies win.', src: ['R1', 'R2'], specs: [0], sure: 'Our estimate' },
+  { leak: 'Follow-ups', bg: '#eef0fd', art: '/images/recall.webp', to: 18000, prefix: '₹', what: 'From patients brought back for their check-up', how: '150 patients due for a check-up each month × about 8 in 100 more coming back when reminded (the figure from vaccination reminder studies) = 12 visits × ₹1,500.', src: ['R11'], specs: [3], sure: 'Research + our estimate' },
+  { leak: 'Reviews', bg: '#fbe4ea', art: '/images/reviews.webp', to: 50, suffix: '+', what: 'New Google reviews every month', how: 'All 520 patients asked after their visit. Even if only 1 in 10 posts a review (a US survey says up to 2 in 3 will when asked). Google says more reviews can help your local ranking.', src: ['R7', 'R8'], specs: [2], sure: 'Research + our estimate' },
+  { leak: 'Your receptionist', bg: SECTION_BG.impact, art: '/images/team-720.webp', to: 50, suffix: ' hrs', what: 'Of your receptionist’s time back every month', how: '750 WhatsApp messages at about 3 minutes each, plus 520 reminder calls at about 2 minutes each.', src: [], specs: [0, 1, 2, 3], sure: 'Our estimate' },
 ];
-const ART = ['/images/front-desk.webp', '/images/reminder.webp', '/images/reviews.webp', '/images/recall.webp', '/images/team-720.webp', '/images/team-720.webp'];
+const BEATS = STATS.length + 1; // + the closing CTA
+
+/* Sample-clinic figures for the hero, read from the same STATS so the two can never disagree. */
+const figure = (leak: string) => STATS.find((s) => s.leak === leak)!.to;
+export const SAMPLE = {
+  total: figure('All together'), noShows: figure('No-shows'), enquiries: figure('Missed enquiries'),
+  followUps: figure('Follow-ups'), reviews: figure('Reviews'), hours: figure('Your receptionist'),
+};
+
+/* Art drifts up through its own beat, tied to scroll (not time), so it moves exactly as far as you scroll. */
+function Art({ s, i }: { s: Stat; i: number }) {
+  const { progress, animated } = useScene();
+  const local = useTransform(progress, (v) => Math.min(1, Math.max(0, v * BEATS - i)));
+  const y = useTransform(local, [0, 1], [70, -70]);
+  const scale = useTransform(local, [0, 1], [1.08, 1]);
+  const team = s.art.includes('team');
+  return (
+    <motion.img className="impact-art" src={s.art} alt="" loading="lazy" decoding="async"
+      style={{ ...(team ? { aspectRatio: '720 / 402' } : {}), ...(animated ? { y, scale } : {}) }} />
+  );
+}
 
 function StatBlock({ s, i }: { s: Stat; i: number }) {
   return (
@@ -23,13 +46,14 @@ function StatBlock({ s, i }: { s: Stat; i: number }) {
         <p className={`impact-num D ${s.to >= 100000 ? 'long' : ''}`}><Counter to={s.to} prefix={s.prefix} suffix={s.suffix} /></p>
         <p className="impact-what D">{s.what}</p>
         <p className="impact-how">{s.how}</p>
+        {s.sure && <p className="impact-sure"><span>How sure</span>{s.sure}</p>}
         {s.src.map((id) => <SourceTag key={id} id={id} />)}
         <div className="who" style={{ marginTop: 14 }}>
           {s.specs.map((k) => <img key={k} src={TEAM[k].thumb} alt="" />)}
           <p>{s.specs.length === 4 ? 'The whole team' : TEAM[s.specs[0]].title}<br /><span className="live">Live</span></p>
         </div>
       </div>
-      <img className="impact-art" src={ART[i]} alt="" loading="lazy" decoding="async" style={i >= 4 ? { aspectRatio: '720 / 402' } : undefined} />
+      <Art s={s} i={i} />
     </div>
   );
 }
@@ -38,11 +62,10 @@ function Cta() {
   return (
     <div>
       <h2 className="big-line xl D">Get these numbers <em>for your clinic.</em></h2>
-      <p className="muted" style={{ margin: '14px 0 24px', maxWidth: '44ch' }}>Five questions about your clinic. A free front desk audit with your own estimate, built the same way.</p>
+      <p className="muted" style={{ margin: '14px 0 24px', maxWidth: '44ch' }}>A 1-minute checkup of your front desk. 8 quick questions, and you see your score straight away.</p>
       <div className="btn-row">
-        <a className="btn" href={waLink(MESSAGES.impact)}>Message us on WhatsApp</a>
-        {/* savings.html is not built yet: point this at the calculator once it exists */}
-        <a className="btn ghost" href="/savings.html">Check my clinic</a>
+        <a className="btn" href="/vitals.html?src=lp">Check your clinic’s vitals</a>
+        <a className="btn ghost" href={waLink(MESSAGES.impact)}>Message us on WhatsApp</a>
       </div>
     </div>
   );
@@ -50,7 +73,7 @@ function Cta() {
 
 export function Impact() {
   return (
-    <Scene id="impact" chapter={4} steps={STATS.length + 1} label="The impact for a sample clinic">
+    <Scene id="impact" chapter={4} steps={BEATS} label="The impact for a sample clinic" base={SECTION_BG.impact}>
       <ImpactStage />
     </Scene>
   );
@@ -75,10 +98,14 @@ function ImpactStage() {
     );
   }
 
+  return <AnimatedStage step={step} head={head} />;
+}
+
+function AnimatedStage({ step, head }: { step: number; head: JSX.Element }) {
   const end = step === STATS.length;
   return (
     <>
-      <motion.div className="stage-bg" initial={false} animate={{ backgroundColor: end ? '#fbf6f4' : STATS[step].bg }} transition={{ duration: 0.6 }} />
+      <Backdrop colors={[...STATS.map((s) => s.bg), SECTION_BG.impact]} words={[...STATS.map((s) => s.leak), 'Your clinic']} />
       <div className="wrap">
         {head}
         <div style={{ marginTop: 20 }}>
@@ -104,6 +131,8 @@ export function Close() {
         <p><b>Shehbaz, Mumbai.</b> I come to your clinic for a 5-minute demo and set everything up in person.</p>
       </div>
       <motion.a className="btn" href={waLink(MESSAGES.end)} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={spring}>Message us on WhatsApp</motion.a>
+      <p className="contact">Or WhatsApp Shehbaz directly: <a href={waLink(MESSAGES.end)}>{WHATSAPP_DISPLAY}</a></p>
+      <p className="contact">Not sure yet? <a href="/vitals.html?src=lp">Check your clinic’s vitals in 1 minute →</a></p>
 
       <div className="plain">
         <section aria-labelledby="price-title">
@@ -117,15 +146,7 @@ export function Close() {
         </section>
       </div>
 
-      <section className="sources" aria-labelledby="sources-title">
-        <h3 id="sources-title">Sources</h3>
-        <ol>
-          {SOURCE_ORDER.map((id) => (
-            <li key={id} id={`src-${id}`}><a href={SOURCES[id].url} rel="noopener">{SOURCES[id].full}</a></li>
-          ))}
-        </ol>
-        <p className="small" style={{ marginTop: 10 }}>Research figures describe published studies, not Cyvo results. All chats, clinics and patients on this page are invented samples.</p>
-      </section>
+      <p className="small" style={{ marginTop: 28 }}>Research figures describe published studies, not Cyvo results. Tap any source tag to read the study. All chats, clinics and patients on this page are invented samples.</p>
     </div>
   );
 }

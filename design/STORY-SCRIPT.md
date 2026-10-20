@@ -6,7 +6,7 @@ Status: draft for approval (2026-10-18). Once approved, the page in `index.html`
 
 ## 1. The one message
 
-> **Every clinic leaks patients in four places. Cyvo gives you a team of four specialists, one for each leak, working on your WhatsApp day and night. Tell them once, and they remember.**
+> **Every clinic loses patients through four gaps. Cyvo gives you a team of four specialists, one for each gap, working on your WhatsApp day and night. Tell them once, and they remember.**
 
 Everything on the page serves that sentence. A doctor who scrolls to the end should be able to repeat three things:
 
@@ -24,13 +24,13 @@ Everything on the page serves that sentence. A doctor who scrolls to the end sho
 
 | Through-line | How it runs through the page |
 |---|---|
-| **Four leaks → four specialists** | Act 1 names four leaks, each with a colour. Act 2 plugs each leak with the specialist of the same colour. Act 3 shows them working. Act 5 measures each one. Same four colours and the same order every time. |
+| **Four gaps → four specialists** | Act 1 names four gaps, each with a colour. Act 2 covers each gap with the specialist of the same colour. Act 3 shows them working. Act 5 measures each one. Same four colours and the same order every time. |
 | **One clinic, one patient** | Sample Clinic and one invented patient, Priya, from first message to six-month recall. No other patients or clinics appear in mocks. |
 | **Research, then our sample** | Every "you're losing" line is a published finding with a source tag. Every rupee figure is sample-clinic arithmetic built on those findings, shown with its working. |
 
-The four leaks (fixed order, fixed colours):
+The four gaps (fixed order, fixed colours):
 
-| # | Leak | Specialist | Colour |
+| # | Gap | Specialist | Colour |
 |---|---|---|---|
 | 1 | Missed enquiries (after hours, slow replies) | Front desk specialist | Periwinkle |
 | 2 | No-shows | Reminder specialist | Butter |
@@ -69,29 +69,29 @@ Use these exact phrasings (or tighter). Each carries a small source tag on the p
 ## 5. The script, act by act
 
 Legend: **Beat** = one scroll step. *Motion* describes what moves. **Copy** is final unless marked TBD.
-Chapter rail becomes: **The leak · The team · Your rules · One patient · The impact**.
+Chapter rail becomes: **The gaps · The team · Your rules · One patient · The impact**.
 
 ### Act 0 · Hero (not pinned)
 *Keeps the current layout.*
 
 - **Copy:** "Your clinic answers WhatsApp at 11 pm. Even when you don't." / "A team of front desk specialists on your clinic's own WhatsApp number, set up in person in Mumbai." / [Message us on WhatsApp]
 - **Visual:** the four specialist tiles with live notifications.
-- **New:** under the tiles, four small leak chips in the same colours: *Missed enquiries · No-shows · Reviews · Follow-ups* — a quiet preview of the frame.
+- **New:** under the tiles, four small gap chips in the same colours: *Missed enquiries · No-shows · Reviews · Follow-ups* — a quiet preview of the frame.
 - *Motion:* tiles rise in; notifications pop; scroll cue "Scroll: see where clinics lose patients".
 
-### Act 1 · The leak (pinned, 6 beats) · replaces "The night"
+### Act 1 · The gaps (pinned, 6 beats) · replaces "The night"
 **Purpose:** make the doctor feel the loss, with research.
 **Visual system:** a 24-hour day bar across the screen (12 am → 12 am). Clinic hours (10 am–8 pm) shaded. Patient messages appear as dots on the bar. On the right, a **leak panel** with four rows (the four leaks), each with its colour and an empty "drip" meter that fills as the act goes on.
 
 | Beat | Headline (big) | Supporting line + source tag | Motion |
 |---|---|---|---|
 | 1 | Your clinic is open 10 hours a day. | — | Day bar draws in; open hours shade in. |
-| 2 | Patients don't keep your hours. | About 4 in 10 doctor appointments are booked between 5 pm and 9 am. **[R1]** | Dots pour onto the evening and night part of the bar. Leak 1 meter fills. |
+| 2 | Patients don't keep your hours. | About 4 in 10 doctor appointments are booked between 5 pm and 9 am. **[R1]** | Dots pour onto the evening and night part of the bar. Gap 1 meter fills. |
 | 3 | Every hour you wait, they keep looking. | Businesses that reply within an hour are about 7× more likely to reach the customer than those that reply an hour later. **[R2]** | Night dots fade and drift off the bar ("went elsewhere"). |
-| 4 | The ones who book still forget. | In one Indian dental hospital study, 39 in 100 patients missed their appointment. **[R3]** | A row of 10 appointment chips; 4 grey out. Leak 2 fills. |
-| 5 | Happy patients don't review, unless you ask. | About 2 in 3 people leave a review when asked. Most patients read reviews before choosing a doctor. **[R7, R9]** | Empty review stars outline (single star icon, never five). Leak 3 fills. |
-| 6 | And patients who are due back drift away. | — | A calendar page flips 6 months; a chip fades. Leak 4 fills. |
-| end | **Four leaks. Every clinic has them. Most don't have the hands to fix them.** | | Leak panel holds full; scroll cue "Next". |
+| 4 | The ones who book still forget. | In one Indian dental hospital study, 39 in 100 patients missed their appointment. **[R3]** | A row of 10 appointment chips; 4 grey out. Gap 2 fills. |
+| 5 | Happy patients don't review, unless you ask. | About 2 in 3 people leave a review when asked. Most patients read reviews before choosing a doctor. **[R7, R9]** | Empty review stars outline (single star icon, never five). Gap 3 fills. |
+| 6 | And patients who are due back drift away. | — | A calendar page flips 6 months; a chip fades. Gap 4 fills. |
+| end | **Four gaps. Every clinic has them. Most don't have the hands to fix them.** | | Gap panel holds full; scroll cue "Next". |
 
 ### Act 2 · The team (pinned, 5 beats)
 **Purpose:** it's a team, and each member exists for a reason.
@@ -140,7 +140,66 @@ On phones: chat on top, memory panel collapses to a single strip of cards under 
 ### Act 5 · The impact (pinned, 5 beats)
 **Purpose:** turn research into rupees, honestly, for a clinic like theirs.
 **Header:** "What the research suggests for a clinic like yours" · label: *Sample clinic: 25 messages a day, 20 patients a day, ₹1,500 average per visit, 150 check-ups due a month. Estimates, not results.*
-(Revised 2026-10-18: visit value ₹800 → ₹1,500, follow-ups due 40 → 150, missed enquiries now monetised, total beat added.)
+(Revised 2026-10-18: visit value ₹800 → ₹1,500, follow-ups due 40 → 150, missed enquiries now monetised, total beat added.) (Revised 2026-10-19: biggest number first: the total opens the act, then the leaks from largest to smallest, so this act no longer follows the four-colour order.)
+
+| Beat | Leak | Big number | Working shown under it | Source |
+|---|---|---|---|---|
+| 1 | All together | **₹1,03,500** a month · about ₹12 lakh a year | Sum of 2, 3, 4, then "here is how each one adds up" | — |
+| 2 | No-shows | **₹63,000** a month | 520 booked, 1 in 5 missed; reminders lift attendance ~10% (80% → 88%) → ~42 visits × ₹1,500 | R4, R5 |
+| 3 | Missed enquiries | **₹22,500** a month | 300 after-hours messages; 1 in 5 a new patient wanting to book; a fast reply keeps 1 in 4 → 15 × ₹1,500 (assumptions) | R1, R2 |
+| 4 | Follow-ups | **₹18,000** a month | 150 due × ~8 in 100 more return → 12 × ₹1,500 | R11 |
+| 5 | Reviews | **50+** new reviews a month | 520 asked; even if only 1 in 10 posts (surveys say up to 2 in 3 when asked) | R7, R8 |
+| 6 | Receptionist | **50 hrs** a month | 750 messages × ~3 min + 520 reminder calls × ~2 min (assumption) | — |
+| end | **Four gaps. Every clinic has them. Most don't have the hands to fix them.** | | Gap panel holds full; scroll cue "Next". |
+
+### Act 2 · The team (pinned, 5 beats)
+**Purpose:** it's a team, and each member exists for a reason.
+
+| Beat | On screen | Copy | Motion |
+|---|---|---|---|
+| 0 | Big type | **Not one chatbot. A team.** One specialist for each leak. | Leak panel from Act 1 slides in from the left. |
+| 1 | Front desk specialist card (periwinkle) | Replies in seconds, day and night, on your number. Books, reschedules, answers questions. *Research: reply within the hour [R2]* | Leak 1 row slides into the card; its meter drains; chip turns to "Covered". |
+| 2 | Reminder specialist (butter) | Two reminders: 3 days before and the day before. Patients confirm with one tap. *Research: two reminders cut missed visits by about a fifth [R5]* | Leak 2 plugs. |
+| 3 | Reviews specialist (pink) | Asks every patient after their visit, with one gentle follow-up. Never only the happy ones, never with incentives. *Research: 2 in 3 review when asked [R7]; Google rewards reviews [R8]* | Leak 3 plugs. |
+| 4 | Recall specialist (light periwinkle) | Messages patients when their follow-up is due and books them back in. *Research: +8 in 100 come back [R11]* | Leak 4 plugs. Full row of four cards, all "Covered". |
+
+Phone: one card at a time (as now), leak chip above it. Desktop: cards join a row.
+
+### Act 3 · Your rules (pinned, 8 beats) · memory + routines + receptionist
+**Purpose:** remove the fear of losing control, and show what no chatbot does: it remembers, and it works on your schedule.
+**Visual system:** left, the doctor's own WhatsApp chat with Cyvo. Right, a **"What the team remembers"** panel that fills up beat by beat: each instruction lands as a card with an icon (one-off, rule, routine) and the four specialist avatars that will follow it.
+
+| Beat | Headline | Doctor's chat (doctor → Cyvo) | Memory panel |
+|---|---|---|---|
+| 1 | **Tell it once. It remembers.** | "Kal clinic band hai" *(Clinic is closed tomorrow)* → "Noted. 3 patients are booked tomorrow. Move them to Saturday?" → "Haan" → "Done. All 3 moved and informed." | Card: **Closed tomorrow** · one-off · all four avatars tick. |
+| 2 | Rules, not reminders. | "Saturday ko 12 se 3 booking mat lena" *(Don't take bookings on Saturday between 12 and 3)* → "Got it. No bookings Saturday 12–3 pm." | Card: **No bookings Sat 12–3 pm** · rule. |
+| 3 | It keeps your clinic's way of working. | "Root canal ke liye 60 minute ka slot rakho" *(Keep 60-minute slots for root canals)* → "Done. Root canals now get 60 minutes." | Card: **Root canal = 60 min** · standing rule. (Dermatology variant: "Chemical peel = 45 min".) |
+| 4 | Plan ahead, once. | "20 se 24 Dec main chhutti pe hoon" *(I'm on leave 20–24 Dec)* → "Noted. No bookings 20–24 Dec. Patients asking will be offered the 26th onwards." | Card: **Leave 20–24 Dec** · dated rule. |
+| 5 | **Set routines. It runs them for you.** | "Roz raat 10 baje kal ki bookings bhejo" *(Every night at 10, send me tomorrow's bookings)* → "Done. Every night at 10 pm." | Card: **Every night 10 pm · tomorrow's bookings** · routine (clock icon). |
+| 6 | (The routine running) | **10:00 pm**, from Cyvo: "Tomorrow, Saturday: 14 bookings. First at 10:00 am. 2 new patients. 12–3 pm blocked, as you asked." | The routine card pulses once. |
+| 7 | Every Sunday, your report card. | **Sun 9:00 am**: the weekly report card arrives (the existing report card block, now presented as a routine). | Card: **Every Sunday 9 am · report card** · routine (on by default). |
+| 8 | **Your receptionist gets a team, not a replacement.** She handles the people. The team handles everything else. | Needs-you list with take-over buttons. | Panel collapses into "6 things remembered · 2 routines running". The closing line lights up word by word. |
+
+Routine ideas to mention in small text (not all animated): "Every Monday 9 am: last week's no-shows" · "Every evening: patients who asked for a call back" · "1st of the month: follow-ups due this month".
+On phones: chat on top, memory panel collapses to a single strip of cards under it.
+
+### Act 4 · One patient (pinned, ~12 beats) · merges the "Tell it once" patient part + "After the visit"
+**Purpose:** show the team as one continuous service that follows your rules, not four tools.
+**Visual system:** a **journey line** across the top with five stops: *Enquiry · Reminders · Visit · Review · Recall*. The active stop lights in that specialist's colour, with their avatar on it. Below: one phone with Priya's chat that keeps scrolling. The stage background takes the active specialist's colour. When a rule from Act 3 is applied, a small chip appears: "Your rule: no bookings Sat 12–3".
+
+| Beats | Stop | Time label | Chat (specialist → Priya) |
+|---|---|---|---|
+| 1–3 | Enquiry · Front desk | Sun 10:41 pm | Priya: Hi, can I come in this week? → "Of course. Saturday has: 11:00 am · 3:30 pm · 5:00 pm" + chip **"Skipped 12–3 pm: your rule"** → Priya: 11 → "Booked: Saturday, 11:00 am." |
+| 4–5 | Reminders · Reminder | Wed 7:00 pm (3 days before), then Fri 7:00 pm (day before) | "Reminder: Saturday 11:00 am at Sample Clinic. Reply 1 to confirm, 2 to change." → Priya: 1 → (Fri) "See you tomorrow at 11:00 am." |
+| 6 | Visit | Sat 11:00 am | No chat. A "Visited ✓" stamp on the journey line. The receptionist sees Priya in person. |
+| 7–9 | Review · Reviews | Sat 1:15 pm, then Mon 11:00 am | "Thank you for visiting today. If you have a minute, please share your experience on Google. [Write a review]" → (Mon, gentle follow-up) "Just a gentle reminder, only if you'd like to." → Priya: Done. Note: *Every patient is asked. No incentives.* |
+| 10–12 | Recall · Recall | 6 months later | "Your follow-up is due. Next week: Tue 11:00 am · Thu 5:00 pm" → Priya: Thursday 5 → "Booked: Thursday, 5:00 pm. We'll remind you." Journey line loops back to Reminders. |
+| end | — | — | **One patient. Four specialists. Your rules, every time.** |
+
+### Act 5 · The impact (pinned, 5 beats)
+**Purpose:** turn research into rupees, honestly, for a clinic like theirs.
+**Header:** "What the research suggests for a clinic like yours" · label: *Sample clinic: 25 messages a day, 20 patients a day, ₹1,500 average per visit, 150 check-ups due a month. Estimates, not results.*
+(Revised 2026-10-18: visit value ₹800 → ₹1,500, follow-ups due 40 → 150, missed enquiries now monetised, total beat added.) (Revised 2026-10-19: biggest number first: the total opens the act, then the leaks from largest to smallest, so this act no longer follows the four-colour order.)
 
 | Beat | Leak | Big number | Working shown under it | Source |
 |---|---|---|---|---|
@@ -157,7 +216,8 @@ The biggest assumptions (visit value, share of night messages that are new booki
 ### Act 6 · Close (not pinned)
 - Team image + **"See the team on your own number."** + founder line + WhatsApp button.
 - Pricing line, data line.
-- **Sources** list (R1–R11, linked, one line each) above the footer, in small text. Every source tag on the page links here.
+- No sources list (removed 2026-10-19). Every source tag opens its study directly in a new tab; one small line keeps the "research, not Cyvo results; invented samples" note.
+- Contact: WhatsApp +91 99208 05299 shown under the hero button, under the closing button, in the footer and on the data page. Every WhatsApp button opens this number.
 
 ## 6. Reveal and motion rules for this script
 
@@ -177,7 +237,7 @@ The biggest assumptions (visit value, share of night messages that are new booki
 | The night (clock + inbox) | **Act 1 · The leak** (day bar + leak panel, research) |
 | Our test (? hours) | Folded into Act 1 beat 3 as our own finding once real; until then hidden |
 | Tell it once | Doctor part → **Act 3 · Your rules** (now with memory and routines); patient part → **Act 4 · One patient** |
-| The team | **Act 2**, now plugging leaks |
+| The team | **Act 2**, now covering gaps |
 | Morning: needs-you | **Act 3** beat 8 |
 | After the visit | **Act 4** (with Enquiry and Visit stops added) |
 | Report card | **Act 3** beat 7, presented as a routine that's on by default |

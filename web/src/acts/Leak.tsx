@@ -1,14 +1,14 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState, type ReactNode } from 'react';
-import { TEAM, type SourceId } from '../data/content';
+import { SECTION_BG, TEAM, type SourceId } from '../data/content';
 import { Scene, useIsNarrow, useScene } from '../components/Scene';
-import { Counter, SourceTag, Swap, ease, spring } from '../components/ui';
+import { Backdrop, Counter, Drift, SourceTag, Swap, ease, spring } from '../components/ui';
 
 /* ---------- Beats ----------
    Each beat leads with ONE big number (the research finding) and one visual. */
 type Visual = 'clock-open' | 'clock-msgs' | 'clock-leave' | 'appts' | 'reviews' | 'calendar' | 'end';
 type Beat = {
-  leak: number | null;          // which of the four leaks this beat reveals (index into TEAM)
+  leak: number | null;          // which of the four gaps this beat reveals (index into TEAM)
   frame: ReactNode;             // framing headline
   stat?: { to: number; prefix?: string; suffix?: string };
   meaning: ReactNode;           // what the number means, in big dark text
@@ -17,14 +17,15 @@ type Beat = {
   tint: string;
 };
 const BEATS: Beat[] = [
-  { leak: null, frame: 'Your clinic is open', stat: { to: 10, suffix: ' hours' }, meaning: <>a day. Patients message for all <b>24</b>.</>, visual: 'clock-open', tint: '#fbf6f4' },
-  { leak: 0, frame: 'Patients don’t keep your hours.', stat: { to: 4, suffix: ' in 10' }, meaning: 'doctor appointments are booked between 5 pm and 9 am, when most clinics are closed.', src: ['R1'], visual: 'clock-msgs', tint: '#eeeffd' },
-  { leak: 0, frame: 'And they don’t wait.', stat: { to: 7, suffix: '×' }, meaning: 'more likely to reach a customer if you reply within the hour, compared with an hour later.', src: ['R2'], visual: 'clock-leave', tint: '#eeeffd' },
-  { leak: 1, frame: 'The ones who book still forget.', stat: { to: 39, suffix: ' in 100' }, meaning: 'patients missed their appointment in one Indian dental hospital study.', src: ['R3'], visual: 'appts', tint: '#fcf3d6' },
-  { leak: 2, frame: 'Happy patients stay quiet.', stat: { to: 2, suffix: ' in 3' }, meaning: 'people leave a review when they’re asked. Most never are. And most patients read reviews before choosing a doctor.', src: ['R7', 'R9'], visual: 'reviews', tint: '#fcebef' },
+  { leak: null, frame: 'Your clinic is open', stat: { to: 10, suffix: ' hours' }, meaning: <>a day. Patients message for all <b>24</b>.</>, visual: 'clock-open', tint: SECTION_BG.gaps },
+  { leak: 0, frame: 'Patients don’t keep your hours.', stat: { to: 4, suffix: ' in 10' }, meaning: 'doctor appointments in US online bookings were made between 5 pm and 9 am, when most clinics are closed.', src: ['R1'], visual: 'clock-msgs', tint: '#eeeffd' },
+  { leak: 0, frame: 'And they don’t wait.', stat: { to: 7, suffix: '×' }, meaning: 'more likely to get a real conversation when firms replied to an enquiry within the hour (a study of US sales enquiries).', src: ['R2'], visual: 'clock-leave', tint: '#eeeffd' },
+  { leak: 1, frame: 'The ones who book still forget.', stat: { to: 39, suffix: ' in 100' }, meaning: 'appointments were missed in one Indian children’s dental OPD.', src: ['R3'], visual: 'appts', tint: '#fcf3d6' },
+  { leak: 2, frame: 'Happy patients stay quiet.', stat: { to: 2, suffix: ' in 3' }, meaning: 'people in a US survey said they leave a review when asked. And most US patients surveyed read reviews before choosing a doctor.', src: ['R7', 'R9'], visual: 'reviews', tint: '#fcebef' },
   { leak: 3, frame: 'Patients who are due back drift away.', stat: { to: 6, suffix: ' months' }, meaning: 'go by, and the follow-up nobody reminded them about never happens.', visual: 'calendar', tint: '#f1f2fe' },
-  { leak: null, frame: <>Four leaks. <em>Every clinic has them.</em></>, meaning: 'Most clinics don’t have the hands to fix them. Yours doesn’t need more hands.', visual: 'end', tint: '#fbf6f4' },
+  { leak: null, frame: <>Four gaps. <em>Every clinic has them.</em></>, meaning: 'Most clinics don’t have the hands to fix them. Yours doesn’t need more hands.', visual: 'end', tint: SECTION_BG.gaps },
 ];
+const STRIP = ['Your hours', 'After hours', 'Too slow', 'No-shows', 'Reviews', 'Follow-ups', 'Four gaps'];
 const TRACK_LABELS = ['Missed enquiries', 'No-shows', 'Reviews', 'Follow-ups'];
 
 /* ---------- 24-hour clock ---------- */
@@ -155,7 +156,7 @@ function Calendar() {
   );
 }
 
-const END_STATS = ['4 in 10 bookings after hours', '39 in 100 missed', '2 in 3 review, if asked', 'Follow-ups slip'];
+const END_STATS = ['4 in 10 bookings after hours (US)', '39 in 100 missed (one OPD)', '2 in 3 review, if asked (US)', 'Follow-ups slip'];
 function EndCards() {
   const { animated } = useScene();
   return (
@@ -163,9 +164,9 @@ function EndCards() {
       {TEAM.map((s, i) => (
         <motion.div key={s.id} className="leak-card" style={{ ['--c' as string]: s.colour }} initial={animated ? { opacity: 0, y: 30, rotate: i % 2 ? 2 : -2 } : false} animate={{ opacity: 1, y: 0, rotate: 0 }} transition={{ ...spring, delay: animated ? i * 0.1 : 0 }}>
           <span className="leak-num D">{i + 1}</span>
-          <b>{s.leak}</b>
+          <b>{s.gap}</b>
           <span>{END_STATS[i]}</span>
-          <motion.i className="drip" animate={animated ? { y: [0, 8, 0], opacity: [1, 0.35, 1] } : undefined} transition={{ duration: 1.6, repeat: Infinity, delay: i * 0.3 }} />
+          <motion.i className="drip" animate={animated ? { y: [0, 5, 0], opacity: [1, 0.35, 1] } : undefined} transition={{ duration: 1.6, repeat: Infinity, delay: i * 0.3 }} />
         </motion.div>
       ))}
     </div>
@@ -188,7 +189,7 @@ function BeatText({ b }: { b: Beat }) {
   const s = b.leak !== null ? TEAM[b.leak] : null;
   return (
     <>
-      {s ? <span className="leak-badge" style={{ ['--c' as string]: s.colour }}><i />Leak {b.leak! + 1} of 4 · {TRACK_LABELS[b.leak!]}</span>
+      {s ? <span className="leak-badge" style={{ ['--c' as string]: s.colour }}><i />Gap {b.leak! + 1} of 4 · {TRACK_LABELS[b.leak!]}</span>
          : <span className="leak-badge plain">Where clinics lose patients</span>}
       <h2 className={`leak-frame D ${b.visual === 'end' ? 'xl' : ''}`}>{b.frame}</h2>
       {b.stat && <p className="leak-stat D"><Counter to={b.stat.to} prefix={b.stat.prefix} suffix={b.stat.suffix} /></p>}
@@ -214,7 +215,7 @@ function Tracker({ step }: { step: number }) {
 
 export function Leak() {
   return (
-    <Scene id="leak" chapter={0} steps={BEATS.length} label="The leak: where clinics lose patients">
+    <Scene id="leak" chapter={0} steps={BEATS.length} label="The gaps: where clinics lose patients" base={SECTION_BG.gaps}>
       <LeakStage />
     </Scene>
   );
@@ -240,19 +241,19 @@ function LeakStage() {
   const b = BEATS[step];
   return (
     <>
-      <motion.div className="stage-bg" initial={false} animate={{ backgroundColor: b.tint }} transition={{ duration: 0.6 }} />
+      <Backdrop colors={BEATS.map((x) => x.tint)} words={STRIP} />
       <div className="wrap">
         <div className="split leak-split">
           <div className="leak-text">
             <AnimatePresence mode="wait"><Swap k={step}><BeatText b={b} /></Swap></AnimatePresence>
           </div>
-          <div className="leak-visual">
+          <Drift className="leak-visual">
             <AnimatePresence mode="wait">
               <motion.div key={visualKey(b.visual)} initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.92 }} transition={{ duration: 0.4, ease }}>
                 <VisualFor v={b.visual} />
               </motion.div>
             </AnimatePresence>
-          </div>
+          </Drift>
         </div>
         {!(narrow && b.visual === 'end') && <Tracker step={step} />}
       </div>
