@@ -1,17 +1,19 @@
 import { AnimatePresence, motion } from 'motion/react';
 import type { ReactNode } from 'react';
-import { TEAM } from '../data/content';
+import { SECTION_BG, TEAM } from '../data/content';
 import { Scene, useIsNarrow, useScene } from '../components/Scene';
-import { Bubble, Swap, ThreadItem, spring } from '../components/ui';
+import { Backdrop, Bubble, Swap, ThreadItem, spring } from '../components/ui';
 
 const STOPS = [
-  { name: 'Enquiry', spec: 0, bg: '#e8e9fc', time: 'Sun · 10:41 pm', h: 'She messages at night. The front desk answers.' },
+  { name: 'Enquiry', spec: 0, bg: '#e8e9fc', time: 'Sun · 10:41 pm', h: 'She messages at night. Cyvo answers.' },
   { name: 'Reminders', spec: 1, bg: '#fbf0c9', time: 'Wed & Fri · 7 pm', h: 'Two reminders. She confirms with one tap.' },
   { name: 'Visit', spec: -1, bg: '#fbf6f4', time: 'Sat · 11:00 am', h: 'She comes in. Your receptionist greets her.' },
   { name: 'Review', spec: 2, bg: '#fbe4ea', time: 'Sat · 1:15 pm', h: 'After the visit, she’s asked for a review.' },
   { name: 'Recall', spec: 3, bg: '#eef0fd', time: '6 months later', h: 'Her follow-up is due. She comes back.' },
 ];
 const STOP_OF = [0, 0, 0, 1, 1, 2, 3, 3, 3, 4, 4, 4];
+const TINTS = [...STOP_OF.slice(0, -1).map((i) => STOPS[i].bg), SECTION_BG.patient];
+const STRIP = [...STOPS.map((s) => s.name), 'Every time'];
 const FD = 'Front desk specialist', RM = 'Reminder specialist', RV = 'Reviews specialist', RC = 'Recall specialist';
 
 const ITEMS: ReactNode[][] = [
@@ -58,7 +60,7 @@ function Journey({ stop, done }: { stop: number; done: boolean }) {
 
 export function Patient() {
   return (
-    <Scene id="patient" chapter={3} steps={ITEMS.length} label="One patient, four specialists">
+    <Scene id="patient" chapter={3} steps={ITEMS.length} label="One patient, four specialists" base={SECTION_BG.patient}>
       <PatientStage />
     </Scene>
   );
@@ -87,7 +89,7 @@ function PatientStage() {
 
   return (
     <>
-      <motion.div className="stage-bg" initial={false} animate={{ backgroundColor: done ? '#fbf6f4' : s.bg }} transition={{ duration: 0.6 }} />
+      <Backdrop colors={TINTS} words={STRIP} />
       <div className="wrap">
         <p className="eyebrow">One patient · four specialists</p>
         <div style={{ marginTop: narrow ? 30 : 40 }}><Journey stop={stop} done={done} /></div>

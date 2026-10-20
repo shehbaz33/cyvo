@@ -1,7 +1,8 @@
+import { SECTION_BG } from '../data/content';
 import { AnimatePresence, motion, useMotionValueEvent } from 'motion/react';
 import { useState, type ReactNode } from 'react';
 import { Scene, useIsNarrow, useScene } from '../components/Scene';
-import { Bubble, Swap, ThreadItem, ease, spring } from '../components/ui';
+import { Backdrop, Bubble, Drift, Swap, ThreadItem, ease, spring } from '../components/ui';
 
 type Mem = { title: string; kind: string; ic: string; c: string };
 type Beat = { h: ReactNode; sub: string; items: ReactNode[]; mem?: Mem };
@@ -73,6 +74,9 @@ const BEATS: Beat[] = [
   },
 ];
 const STEPS = BEATS.length + 1; // last beat: the receptionist
+/* One soft tint per beat, matching the colour of the memory card it adds. */
+const TINTS = ['#eeeffd', '#fcf3d6', '#fcf3d6', '#fcebef', '#f1f2fe', '#f1f2fe', '#f1f2fe', SECTION_BG.rules];
+const STRIP = ['Tell it once', 'Rules', 'Your way', 'Plan ahead', 'Routines', '10 pm', 'Sunday', 'Your receptionist'];
 const ROUTINES = ['Every Monday 9 am: last week’s no-shows', 'Every evening: patients who asked for a call back', '1st of the month: follow-ups due'];
 
 function MemCard({ m, enter }: { m: Mem; enter: boolean }) {
@@ -123,7 +127,7 @@ function Receptionist({ animated }: { animated: boolean }) {
 
 export function Rules() {
   return (
-    <Scene id="rules" chapter={2} steps={STEPS} label="Your rules: it remembers what you tell it and runs routines">
+    <Scene id="rules" chapter={2} steps={STEPS} label="Your rules: it remembers what you tell it and runs routines" base={SECTION_BG.rules}>
       <RulesStage />
     </Scene>
   );
@@ -150,8 +154,9 @@ function RulesStage() {
     );
   }
 
+  const backdrop = <Backdrop colors={TINTS} words={STRIP} />;
   if (step === STEPS - 1) {
-    return <div className="wrap"><p className="eyebrow">Your rules</p><div style={{ marginTop: 14 }}><Receptionist animated /></div></div>;
+    return <>{backdrop}<div className="wrap"><p className="eyebrow">Your rules</p><div style={{ marginTop: 14 }}><Receptionist animated /></div></div></>;
   }
 
   const shown = BEATS.slice(0, step + 1);
@@ -160,6 +165,8 @@ function RulesStage() {
   const b = BEATS[step];
 
   return (
+    <>
+    {backdrop}
     <div className="wrap">
       <p className="eyebrow">Your rules</p>
       <div className="split" style={{ marginTop: 14 }}>
@@ -177,15 +184,16 @@ function RulesStage() {
           {narrow && <div className="mem-strip">{mems.slice(-2).reverse().map((m) => <MemCard key={m.title} m={m} enter />)}</div>}
         </div>
         {!narrow && (
-          <div className="memory">
+          <Drift className="memory" by={30}>
             <header>What the team remembers <span>{mems.length} saved</span></header>
             <div className="mem-list">{mems.map((m) => <MemCard key={m.title} m={m} enter />)}</div>
             <motion.p className="small" style={{ marginTop: 10 }} initial={false} animate={{ opacity: step >= 4 ? 1 : 0 }} transition={{ duration: 0.4, ease }}>
               More routines: {ROUTINES.join(' · ')}
             </motion.p>
-          </div>
+          </Drift>
         )}
       </div>
     </div>
+    </>
   );
 }

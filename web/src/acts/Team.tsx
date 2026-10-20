@@ -1,8 +1,11 @@
 import { AnimatePresence, motion } from 'motion/react';
-import { TEAM, type Specialist } from '../data/content';
+import { SECTION_BG, TEAM, type Specialist } from '../data/content';
 import { Scene, useIsNarrow, useScene } from '../components/Scene';
-import { SourceTag, Swap, ease, spring } from '../components/ui';
+import { Backdrop, Drift, SourceTag, Swap, ease, spring } from '../components/ui';
 
+/* Each specialist's beat takes the soft tint of its colour (same tints as the gaps act). */
+const TINTS = [SECTION_BG.team, '#eeeffd', '#fcf3d6', '#fcebef', '#f1f2fe', SECTION_BG.team];
+const STRIP = ['A team', ...TEAM.map((s) => s.short), 'All covered'];
 const STICKERS = ['s-butter', 's-peri', 's-butter', 's-blush'];
 
 function Card({ s, i, enter }: { s: Specialist; i: number; enter: boolean }) {
@@ -28,15 +31,15 @@ function Card({ s, i, enter }: { s: Specialist; i: number; enter: boolean }) {
 function Slot({ s }: { s: Specialist }) {
   return (
     <motion.div className="slot" style={{ ['--c' as string]: s.colour }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.2 }}>
-      <span className="leak-chip" style={{ ['--c' as string]: s.colour }}><i />{s.leak}</span>
-      <span className="leak-state">Leaking</span>
+      <span className="leak-chip" style={{ ['--c' as string]: s.colour }}><i />{s.gap}</span>
+      <span className="leak-state">Not covered yet</span>
     </motion.div>
   );
 }
 
 export function Team() {
   return (
-    <Scene id="team" chapter={1} steps={6} label="The team: one specialist for each leak">
+    <Scene id="team" chapter={1} steps={6} label="The team: one specialist for each gap" base={SECTION_BG.team}>
       <TeamStage />
     </Scene>
   );
@@ -47,13 +50,13 @@ function TeamStage() {
   const narrow = useIsNarrow(1000);
   const head = step === 0
     ? <h2 className="big-line xl D">Not one chatbot. <em>A team.</em></h2>
-    : <h2 className="big-line D" style={{ maxWidth: '22ch' }}>One specialist for each leak.</h2>;
+    : <h2 className="big-line D" style={{ maxWidth: '30ch' }}>One specialist for each gap.</h2>;
 
   if (!animated) {
     return (
       <div className="wrap">
         <h2 className="big-line xl D">Not one chatbot. <em>A team.</em></h2>
-        <p className="muted" style={{ marginTop: 12 }}>One specialist for each leak, all working on your number.</p>
+        <p className="muted" style={{ marginTop: 12 }}>One specialist for each gap, all working on your number.</p>
         <div className="team-row">{TEAM.map((s, i) => <Card key={s.id} s={s} i={i} enter={false} />)}</div>
       </div>
     );
@@ -62,6 +65,8 @@ function TeamStage() {
   if (narrow) {
     const cur = step >= 1 ? Math.min(step - 1, 3) : -1;
     return (
+      <>
+      <Backdrop colors={TINTS} words={STRIP} />
       <div className="wrap">
         <AnimatePresence mode="wait"><Swap k={step === 0 ? 'intro' : 'head'}>{head}</Swap></AnimatePresence>
         <div className="status-row">
@@ -77,28 +82,32 @@ function TeamStage() {
             {step === 5 && (
               <motion.div key="all" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={spring} style={{ position: 'absolute', inset: 0, display: 'grid', alignContent: 'center', gap: 12 }}>
                 <img src="/images/team-720.webp" width={720} height={402} alt="" />
-                <p className="muted" style={{ fontSize: 15 }}>All four leaks covered. Patients never see these titles. They just see your clinic.</p>
+                <p className="muted" style={{ fontSize: 15 }}>All four gaps covered. Patients never see these titles. They just see your clinic.</p>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
       </div>
+      </>
     );
   }
 
   return (
+    <>
+    <Backdrop colors={TINTS} words={STRIP} />
     <div className="wrap">
       <AnimatePresence mode="wait"><Swap k={step === 0 ? 'intro' : 'head'}>{head}</Swap></AnimatePresence>
-      <div className="team-row">
+      <Drift className="team-row" by={10}>
         {TEAM.map((s, i) => (
           <AnimatePresence mode="wait" key={s.id}>
             {i < step ? <Card key="card" s={s} i={i} enter /> : <Slot key="slot" s={s} />}
           </AnimatePresence>
         ))}
-      </div>
+      </Drift>
       <motion.p className="small" style={{ marginTop: 14 }} animate={{ opacity: step === 5 ? 1 : 0 }} transition={{ duration: 0.4, ease }}>
-        All four leaks covered. Patients never see these titles. They just see your clinic.
+        All four gaps covered. Patients never see these titles. They just see your clinic.
       </motion.p>
     </div>
+    </>
   );
 }

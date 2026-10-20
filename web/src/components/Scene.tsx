@@ -13,7 +13,7 @@ export function useAnimated() {
 }
 
 /* ---------- Guide store: which chapter is pinned, and how far through it ---------- */
-export const CHAPTERS = ['The leak', 'The team', 'Your rules', 'One patient', 'The impact'];
+export const CHAPTERS = ['The gaps', 'The team', 'Your rules', 'One patient', 'The impact'];
 type GuideState = { active: number | null; done: number };
 let guide: GuideState = { active: null, done: -1 };
 const listeners = new Set<() => void>();
@@ -43,11 +43,12 @@ type Props = {
   steps: number;
   label: string;
   stepLength?: string;
+  base?: string; // the section's own background colour (shows without JS too)
   className?: string;
   children: ReactNode;
 };
 
-export function Scene({ id, chapter, steps, label, stepLength, className = '', children }: Props) {
+export function Scene({ id, chapter, steps, label, stepLength, base, className = '', children }: Props) {
   const animated = useAnimated();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
@@ -71,7 +72,7 @@ export function Scene({ id, chapter, steps, label, stepLength, className = '', c
       ref={ref}
       aria-label={label}
       className={`scene ${animated ? 'is-animated' : ''} ${className}`}
-      style={{ ['--steps' as string]: steps, ...(stepLength ? { ['--step-len' as string]: stepLength } : {}) }}
+      style={{ ['--steps' as string]: steps, ...(stepLength ? { ['--step-len' as string]: stepLength } : {}), ...(base ? { background: base } : {}) }}
     >
       <div className="stage">
         <Ctx.Provider value={{ step: animated ? step : steps - 1, steps, progress: scrollYProgress, animated }}>

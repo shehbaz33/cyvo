@@ -1,7 +1,7 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 import { animate, motion, useInView, useTransform } from 'motion/react';
 import { SOURCES, type SourceId } from '../data/content';
-import { CHAPTERS, sceneProgress, useAnimated, useGuide, useScene } from './Scene';
+import { CHAPTERS, sceneProgress, useAnimated, useGuide, useIsNarrow, useScene } from './Scene';
 import { useScroll } from 'motion/react';
 
 export const spring = { type: 'spring', stiffness: 260, damping: 26 } as const;
@@ -38,7 +38,7 @@ export function ThreadItem({ className, children }: { className: string; childre
 }
 
 export function SourceTag({ id }: { id: SourceId }) {
-  return <a className="source" href={`#src-${id}`}>{SOURCES[id].short}</a>;
+  return <a className="source" href={SOURCES[id].url} target="_blank" rel="noopener" title={SOURCES[id].full}>{SOURCES[id].short}</a>;
 }
 
 /* Counts up to `to` whenever it appears or `to` changes; lands exactly on the value. */
@@ -74,6 +74,40 @@ export function Swap({ k, children, className }: { k: string | number; children:
   );
 }
 
+/* ---------- Scroll-linked backdrop for pinned scenes ----------
+   Everything here moves with scroll position (not on a timer), so it travels exactly as far as you scroll.
+   - The stage colour sits at the middle of each beat and blends into the next one (one colour per step).
+   - A strip of oversized words slides right to left across the whole scene, ending on its last word. */
+export function Backdrop({ colors, words }: { colors: string[]; words: string[] }) {
+  const { progress, steps } = useScene();
+  const stops = [0, ...colors.map((_, i) => (i + 0.5) / steps), 1];
+  const bg = useTransform(progress, stops, [colors[0], ...colors, colors[colors.length - 1]]);
+  const ref = useRef<HTMLParagraphElement>(null);
+  const travel = useRef(0);
+  useEffect(() => {
+    const measure = () => { if (ref.current) travel.current = Math.max(0, ref.current.scrollWidth - window.innerWidth * 0.85); };
+    measure();
+    document.fonts?.ready.then(measure);
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
+  const x = useTransform(progress, (v) => 40 - v * (travel.current + 40));
+  return (
+    <>
+      <motion.div className="stage-bg" style={{ backgroundColor: bg }} />
+      <motion.p ref={ref} className="scene-strip D" aria-hidden="true" style={{ x }}>{words.join(' · ')}</motion.p>
+    </>
+  );
+}
+
+/* Content layer that drifts up slowly through the whole scene, against the strip moving sideways. */
+export function Drift({ children, className, by = 40 }: { children: ReactNode; className?: string; by?: number }) {
+  const { progress, animated } = useScene();
+  const narrow = useIsNarrow();
+  const y = useTransform(progress, [0, 1], [by, -by]);
+  return <motion.div className={className} style={animated && !narrow ? { y } : undefined}>{children}</motion.div>;
+}
+
 /* ---------- Scroll guidance: page progress bar, chapter rail, scroll cue ---------- */
 export function Guide() {
   const animated = useAnimated();
@@ -92,7 +126,8 @@ export function Guide() {
       inHeroRef.current = inHero;
       const narrow = window.innerWidth < 760;
       const p = sceneProgress.get();
-      const show = (inHero && !narrow) || g.active !== null;
+      // Only inside pinned acts: the hero has its own inline "Scroll ↓" line, and the pill would cover its founder line.
+      const show = g.active !== null;
       if (cueRef.current) {
         cueRef.current.style.opacity = show ? '1' : '0';
         cueRef.current.style.transform = `translate(${narrow ? '-50%' : '0'}, ${show ? 0 : 20}px)`;
@@ -116,10 +151,17 @@ export function Guide() {
         ))}
       </motion.nav>
       <div className="cue" ref={cueRef} aria-hidden="true" style={{ opacity: 0, transition: 'opacity 300ms, transform 300ms' }}>
-        <span className="ring">
-          <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.5" className="track" /><motion.circle cx="18" cy="18" r="15.5" className="fill" strokeDasharray="97.4" style={{ strokeDashoffset: g.active !== null ? dash : 97.4 }} /></svg>
-          <motion.i className="chev" style={{ rotate: 45 }} animate={{ y: [0, 5, 0] }} transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }} />
-        </span>
+        <motion.span className="cue-nudge" animate={{ y: [0, -3, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}>
+          <span className="ring">
+            <motion.span className="halo" animate={{ scale: [1, 1.7], opacity: [0.55, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: 'easeOut' }} />
+            <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.5" className="track" /><motion.circle cx="18" cy="18" r="15.5" className="fill" strokeDasharray="97.4" style={{ strokeDashoffset: g.active !== null ? dash : 97.4 }} /></svg>
+            {/* Two chevrons fall through the ring one after the other: "this way, keep going" */}
+            {[0, 1].map((k) => (
+              <motion.i key={k} className="chev" style={{ rotate: 45 }} animate={{ y: [-6, 8], opacity: [0, 1, 0] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: 'easeIn', delay: k * 0.6, times: [0, 0.4, 1] }} />
+            ))}
+          </span>
+        </motion.span>
         <span ref={textRef}>Scroll: see where clinics lose patients</span>
       </div>
     </>
