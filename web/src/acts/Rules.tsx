@@ -167,17 +167,17 @@ function RulesStage() {
   return (
     <>
     {backdrop}
-    <div className="wrap">
+    <div className="wrap fill">
       <p className="eyebrow">Your rules</p>
-      <div className="split" style={{ marginTop: 14 }}>
-        <div>
+      <div className="split grow" style={{ marginTop: 14 }}>
+        <div className="grow">
           <AnimatePresence mode="wait">
             <Swap k={step}>
               <h2 className="big-line D">{b.h}</h2>
               <p className="muted" style={{ marginTop: 10 }}>{b.sub}</p>
             </Swap>
           </AnimatePresence>
-          <div className="phone" style={{ marginTop: 18, ['--thread-h' as string]: narrow ? 'clamp(190px, 33vh, 300px)' : 'clamp(260px, 40vh, 400px)' }}>
+          <div className="phone grow" style={{ marginTop: 18, ['--thread-h' as string]: 'clamp(260px, 40vh, 400px)' }}>
             <div className="phone-top">Your WhatsApp <span className="D">Cyvo</span></div>
             <div className="thread">{items}</div>
           </div>
