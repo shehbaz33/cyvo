@@ -67,7 +67,7 @@ function TeamStage() {
     return (
       <>
       <Backdrop colors={TINTS} words={STRIP} />
-      <div className="wrap">
+      <div className="wrap fill">
         <AnimatePresence mode="wait"><Swap k={step === 0 ? 'intro' : 'head'}>{head}</Swap></AnimatePresence>
         <div className="status-row">
           {TEAM.map((s, i) => (
@@ -76,11 +76,17 @@ function TeamStage() {
             </motion.span>
           ))}
         </div>
-        <div className="team-stage-mobile">
+        <div className="team-stage-mobile grow">
           <AnimatePresence mode="popLayout">
+            {step === 0 && (
+              <motion.div key="intro" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={spring} className="team-intro">
+                <img src="/images/team-720.webp" width={720} height={402} alt="" />
+                <p className="muted" style={{ fontSize: 15 }}>One specialist for each gap, all working on your number.</p>
+              </motion.div>
+            )}
             {cur >= 0 && step < 5 && <Card key={TEAM[cur].id} s={TEAM[cur]} i={cur} enter />}
             {step === 5 && (
-              <motion.div key="all" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={spring} style={{ position: 'absolute', inset: 0, display: 'grid', alignContent: 'center', gap: 12 }}>
+              <motion.div key="all" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={spring} className="team-intro">
                 <img src="/images/team-720.webp" width={720} height={402} alt="" />
                 <p className="muted" style={{ fontSize: 15 }}>All four gaps covered. Patients never see these titles. They just see your clinic.</p>
               </motion.div>

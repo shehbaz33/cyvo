@@ -90,10 +90,10 @@ function PatientStage() {
   return (
     <>
       <Backdrop colors={TINTS} words={STRIP} />
-      <div className="wrap">
+      <div className="wrap fill">
         <p className="eyebrow">One patient · four specialists</p>
         <div style={{ marginTop: narrow ? 30 : 40 }}><Journey stop={stop} done={done} /></div>
-        <div className="split">
+        <div className="split grow">
           <div>
             <AnimatePresence mode="wait">
               <Swap k={done ? 'done' : stop}>
@@ -103,13 +103,13 @@ function PatientStage() {
                   <>
                     {spec && !narrow && <div className="who"><img src={spec.thumb} alt="" /><p>{spec.title}<br /><span className="live">Live</span></p></div>}
                     <p className="time-big D" style={{ marginTop: spec && !narrow ? 12 : 0 }}>{s.time}</p>
-                    <h2 className="big-line D" style={{ marginTop: 8, maxWidth: '18ch' }}>{s.h}</h2>
+                    <h2 className="big-line patient-h D" style={{ marginTop: 8, maxWidth: '18ch' }}>{s.h}</h2>
                   </>
                 )}
               </Swap>
             </AnimatePresence>
           </div>
-          <div className="phone" style={{ ['--thread-h' as string]: narrow ? 'clamp(200px, 34vh, 300px)' : 'clamp(280px, 46vh, 460px)' }}>
+          <div className="phone grow" style={{ ['--thread-h' as string]: 'clamp(280px, 46vh, 460px)' }}>
             <div className="phone-top">Sample clinic <span className="D">Priya</span></div>
             <div className="thread">{ITEMS.slice(0, step + 1).flat()}</div>
           </div>

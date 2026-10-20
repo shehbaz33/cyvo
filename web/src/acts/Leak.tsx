@@ -242,12 +242,12 @@ function LeakStage() {
   return (
     <>
       <Backdrop colors={BEATS.map((x) => x.tint)} words={STRIP} />
-      <div className="wrap">
-        <div className="split leak-split">
+      <div className="wrap fill">
+        <div className="split leak-split grow">
           <div className="leak-text">
             <AnimatePresence mode="wait"><Swap k={step}><BeatText b={b} /></Swap></AnimatePresence>
           </div>
-          <Drift className="leak-visual">
+          <Drift className="leak-visual grow">
             <AnimatePresence mode="wait">
               <motion.div key={visualKey(b.visual)} initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.92 }} transition={{ duration: 0.4, ease }}>
                 <VisualFor v={b.visual} />
